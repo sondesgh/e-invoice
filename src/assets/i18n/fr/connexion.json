@@ -1,0 +1,28 @@
+{
+    "testApp": {
+        "connexion" : {
+            "home": {
+                "title": "Connexions",
+                "createLabel": "Créer un nouveau Connexion",
+                "createOrEditLabel": "Créer ou éditer un Connexion",
+                "search": "Recherche pour Connexion"
+            },
+            "created": "Un nouveau Connexion a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Connexion avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Connexion avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Connexion {{ id }} ?"
+            },
+            "detail": {
+                "title": "Connexion"
+            },
+            "loginConnexion": "Login Connexion",
+            "partnerCode": "Partner Code",
+            "port": "Port",
+            "pwd": "Pwd",
+            "type": "Type",
+            "host": "Host",
+            "tradenetAccount": "Tradenet Account"
+        }
+    }
+}

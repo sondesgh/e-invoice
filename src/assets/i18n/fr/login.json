@@ -1,0 +1,39 @@
+{
+  "login": {
+    "title": "Authentification",
+    "form": {
+      "password": "Mot de passe",
+      "password.placeholder": "Votre mot de passe",
+      "rememberme": "Garder la session ouverte",
+      "button": "Connexion",
+      "buttonLoading": "Connexion en cours…",
+      "inscriptiondemande": "Inscription au service <strong>ElFatoora</strong>",
+      "cansubcribe": "Si vous n'êtes pas client vous pouvez vous inscrire!",
+      "subcribe": "S'inscrire",
+      "entercredential": "Entrer login et mot de passe:",
+      "accessspaceclt": "Accéder à votre espace client",
+      "connection": "Connexion"
+    },
+    "messages": {
+      "error": "<strong>Erreur d'authentification!</strong> Veuillez vérifier vos identifiants de connexion.",
+      "authentication": "Échec de connexion !"
+    },
+    "password": {
+      "forgot": "Avez-vous oublié votre mot de passe?"
+    },
+    "captcha": {
+      "label": "Code de vérification",
+      "placeholder": "Saisir le code captcha",
+      "hint": "Cliquer sur l'image pour rafraîchir"
+    },
+    "card": {
+      "title": "Authentification par Carte",
+      "instructions": "Insérez votre carte et cliquez sur <strong>Connexion</strong> pour vous authentifier.",
+      "sign": "Connexion",
+      "signing": "Connexion en cours…",
+      "cancel": "Annuler",
+      "error": "Échec d'authentification !",
+      "close": "Fermer"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+    "portailElFatooraApp": {
+        "amountRef" : {
+            "home": {
+                "title": "AmountRefs",
+                "createLabel": "Créer un nouveau Amount Ref",
+                "createOrEditLabel": "Créer ou éditer un Amount Ref",
+                "search": "Recherche pour Amount Ref"
+            },
+            "created": "Un nouveau Amount Ref a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Amount Ref avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Amount Ref avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Amount Ref {{ id }} ?"
+            },
+            "detail": {
+                "title": "Amount Ref"
+            },
+            "libAmount": "Lib Amount"
+        }
+    }
+}

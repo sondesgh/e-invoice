@@ -1,0 +1,32 @@
+{
+    "portailElFatooraApp": {
+        "signatory" : {
+            "home": {
+                "title": "Les Signiataires",
+                "createLabel": "Créer un nouveau signataire",
+                "createOrEditLabel": "Créer ou éditer un signataire",
+                "search": "Recherche par nom signataire"
+            },
+            "created": "Un nouveau signataire a été créé avec l'identifiant {{ param }}",
+            "updated": "Le signataire avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le signataire avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le signataire {{ id }} ?"
+            },
+            "detail": {
+                "title": "Signataire"
+            },
+            "serialNumber": "Numéro de série",
+            "signatoryEmail": "Email",
+            "signatoryName": "Nom",
+            "accountType": "Type compte",
+            "signValidFrom": "Debut Validité",
+            "signValidTo": "Fin Validité",
+            "partner": "Partnaire",
+            "recoverInfCardSig": "Recupération de la carte",
+            "manualInput": "Saisie Manuelle",
+            "recover": "Recupérer",
+            "setPin": "Saisir code pin"
+        }
+    }
+}

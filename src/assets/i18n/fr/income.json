@@ -1,0 +1,26 @@
+{
+    "portailElFatooraApp": {
+        "income" : {
+            "home": {
+                "title": "Incomes",
+                "createLabel": "Créer un nouveau Income",
+                "createOrEditLabel": "Créer ou éditer un Income",
+                "search": "Recherche pour Income"
+            },
+            "created": "Un nouveau Income a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Income avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Income avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Income {{ id }} ?"
+            },
+            "detail": {
+                "title": "Income"
+            },
+            "dateIncome": "Date Income",
+            "statusIncome": "Status Income",
+            "contentIncome": "Content Income",
+            "contentHash": "Content Hash",
+            "tradenetAccount": "Tradenet Account"
+        }
+    }
+}

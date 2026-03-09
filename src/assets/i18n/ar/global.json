@@ -1,0 +1,145 @@
+{
+    "global": {
+        "title": "ElFatoora",
+        "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
+        "menu": {
+            "home": "الاستقبال",
+            "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+            "entities": {
+                "main": "إدارة المستخدم",
+                "partner": "الشركاء",
+                "schemaVersion": "XSD",
+                "tradenetAccount": "حسابات المستخدمين",
+                "signatory": "الموقعين",
+                "acknowlegment": "Acknowlegment",
+                "error": "Error",
+                "referentiel": "Referentiel",
+                "devise": "العملة",
+                "amountRef": "Amount Ref",
+                "country": "البلدان",
+                "authority": "Droits d'accée",
+                "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+            },
+			"referentiel": "Referentiel",
+            "invoices": {
+            	"main": "فواتيري",
+                "add": "إدخال فاتورة",
+                "import": "تحميل فاتورة غير موقعة",
+                "importSig": "تحميل فاتورة غير موقعة",
+                "consult": "البحث في الفواتير"
+                },
+            "account": {
+                "main": "حساب المستخدم",
+                "settings": "البيانات الشخصية",
+                "password": "كلمة السر",
+                "sessions": "Sessions",
+                "login": "تسجيل الدخول",
+                "logout": "تسجيل الخروج",
+                "register": "فتح حساب"
+            },
+            "admin": {
+                "main": "Administration",
+                "userManagement": "Gestion utilisateur",
+                "tracker": "Suivi des utilisateurs",
+                "metrics": "Métriques",
+                "health": "Diagnostics",
+                "configuration": "Configuration",
+                "logs": "Logs",
+                "audits": "Audits",
+                "apidocs": "API",
+                "database": "Base de données",
+                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+            },
+            "language": "اللغة",
+            "documentation": "تحميل الوثائق",
+            "allDocs": "كل الوثائق",
+            "xsd": "XSD"
+        },
+        "form": {
+            "username": "إسم المستخدم",
+            "username.placeholder": "اسم المستخدم",
+            "newpassword": "كلمة مرور جديدة",
+            "newpassword.placeholder": "كلمة مرور جديدة",
+            "confirmpassword": "تأكيد كلمة المرور الجديدة",
+            "confirmpassword.placeholder": "تأكيد كلمة المرور الجديدة",
+            "email": "البريد الإلكتروني",
+            "email.placeholder": "البريد الإلكتروني"
+        },
+        "messages": {
+            "info": {
+                "authenticated": "إذا كنت من مستخدمي الفاتورة ، يمكنك <a class=\"alert-link\" href=\"\" ng-click=\"vm.login()\"> تسجيل الدخول</a>",
+                "register": "ليس لديك حساب ؟ <a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">فتح حساب</a>"
+            },
+            "error": {
+                "dontmatch": "كلمة المرور الجديدة وتأكيد ليست متساوية"
+            },
+            "validate": {
+                "newpassword": {
+                    "required": ".مطلوب كلمة المرور الخاصة بك",
+                    "minlength": "يجب أن تكون كلمة المرور الخاصة بك 5 أحرف على الأقل",
+                    "maxlength": "كلمة المرور يجب أن لا تحتوي على أكثر من 50 حرفا",
+                    "strength": ":قوة كلمة المرور"
+                },
+                "confirmpassword": {
+                    "required": ".مطلوب تأكيد كلمة المرور",
+                    "minlength": "يجب أن تكون كلمة تأكيدالمرور الخاصة بك 5 أحرف على الأقل",
+                    "maxlength": "كلمة المرور يجب أن لا تحتوي على أكثر من 50 حرفا"
+                },
+                "email": {
+                    "required": ".مطلوب البريد الإلكتروني الخاص بك",
+                    "minlength": "يجب أن يكون البريد الإلكتروني الخاص بك 5 أحرف على الأقل",
+                    "maxlength": "البريد الإلكتروني يجب ألا تحتوي على أكثر من 50 حرفا",
+                    "invalid": ".البريد الإلكتروني غير صالح"
+                }
+            }
+        },
+        "field": {
+            "id": "المعرف"
+        },
+        "ribbon": {
+            "dev":"تنمية"
+        }
+    },
+    "entity": {
+        "action": {
+            "addblob": "Ajouter blob",
+            "addimage": "إضافة الصورة",
+            "back": "عودة",
+            "cancel": "إلغاء",
+            "edit": "تعديل",
+            "delete": "حذف",
+            "open": "فتح",
+            "save": "حفظ",
+            "view": "عرض"
+        },
+        "detail": {
+            "field": "المعطى",
+            "value": "القيمة"
+        },
+        "delete": {
+            "title": "تأكيد الحذف"
+        },
+        "validation": {
+            "required": ".هذاالمعطى مطلوب ",
+            "minlength": ".حرف {{min}} يجب أن يكون هذا المعطى على الأقل",
+            "maxlength": ".حرف {{max}} يجب أن لا يتجاوز هذاالمعطى",
+            "min": ".{{min}} يجب أن يكون هذاالمعطى أقل من",
+            "max": ".{{max}} يجب أن يكون هذا المعطى أكبر من",
+            "minbytes": "Ce champs doit être inférieur à {{min}} bytes.",
+            "maxbytes": "Ce champs doit être supérieur à {{max}} bytes.",
+            "pattern": ".{{pattern}} هذا المعطى يجب أن يتبع",
+            "number": ".يجب أن يكون هذا المعطى عدد",
+            "datetimelocal": ".جب أن يكون هذا المعطى تاريخ ووقت "
+        }
+    },
+    "error": {
+        "server.not.reachable": "الخادم لا يعمل",
+        "url.not.found": "لم يتم العثورعلى الرابط",
+        "NotNull": "!لايمكن ان يكون فارغا {{fieldName}} المعطى",
+        "Size": "!لا يلبي متطلبات  الحد الأدنى/الحد الأقصى {{fieldName}} المعطى",
+        "userexists": "!اسم المستخدم مستعمل",
+        "emailexists": "!البريد الإلكتروني مستعمل",
+        "idexists": "A new {{entityName}} cannot already have an ID"
+    },
+    "footer": ""
+}

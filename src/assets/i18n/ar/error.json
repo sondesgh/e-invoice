@@ -1,0 +1,23 @@
+{
+    "portailElFatooraApp": {
+        "error" : {
+            "home": {
+                "title": "Errors",
+                "createLabel": "Créer un nouveau Error",
+                "createOrEditLabel": "Créer ou éditer un Error",
+                "search": "Recherche pour Error"
+            },
+            "created": "Un nouveau Error a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Error avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Error avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Error {{ id }} ?"
+            },
+            "detail": {
+                "title": "Error"
+            },
+            "errorDescription": "Error Description",
+            "acknowlegment": "Acknowlegment"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "portailElFatooraApp": {
+        "schemaVersion" : {
+            "home": {
+                "title": "SchemaVersions",
+                "createLabel": "Créer un nouveau Schema Version",
+                "createOrEditLabel": "Créer ou éditer un Schema Version",
+                "search": "Recherche pour Schema Version"
+            },
+            "created": "Un nouveau Schema Version a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Schema Version avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Schema Version avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Schema Version {{ id }} ?"
+            },
+            "detail": {
+                "title": "Schema Version"
+            },
+            "versionNumber": "Version Number",
+            "generationDate": "Generation Date",
+            "xsdContent": "Xsd Content"
+        }
+    }
+}

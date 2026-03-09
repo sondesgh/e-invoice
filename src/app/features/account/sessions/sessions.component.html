@@ -1,0 +1,60 @@
+<div class="well">
+  <br />
+  <div class="formcontainer">
+
+    <h2
+      translate="sessions.title"
+      [translateParams]="{ username: account?.login }"
+    >
+      Active sessions for [<b>{{ account?.login }}</b>]
+    </h2>
+
+    @if (success()) {
+      <div class="alert alert-success" translate="sessions.messages.success">
+        <strong>Session invalidated!</strong>
+      </div>
+    }
+    @if (error()) {
+      <div class="alert alert-danger" translate="sessions.messages.error">
+        <strong>An error has occurred!</strong> The session could not be invalidated.
+      </div>
+    }
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th translate="sessions.table.ipaddress">IP Address</th>
+            <th translate="sessions.table.useragent">User agent</th>
+            <th translate="sessions.table.date">Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (session of sessions; track session.series) {
+            <tr>
+              <td>{{ session.ipAddress }}</td>
+              <td>{{ session.userAgent }}</td>
+              <td>{{ session.formattedTokenDate }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="invalidate(session.series)"
+                  translate="sessions.table.button"
+                >
+                  Invalidate
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="text-center text-muted">Aucune session active</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

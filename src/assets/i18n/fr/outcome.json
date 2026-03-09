@@ -1,0 +1,26 @@
+{
+    "portailElFatooraApp": {
+        "outcome" : {
+            "home": {
+                "title": "Outcomes",
+                "createLabel": "Créer un nouveau Outcome",
+                "createOrEditLabel": "Créer ou éditer un Outcome",
+                "search": "Recherche pour Outcome"
+            },
+            "created": "Un nouveau Outcome a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Outcome avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Outcome avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Outcome {{ id }} ?"
+            },
+            "detail": {
+                "title": "Outcome"
+            },
+            "dateOutcome": "Date Outcome",
+            "statusOutcome": "Status Outcome",
+            "contentOutcome": "Content Outcome",
+            "eDoc": "E Doc",
+            "account": "Account"
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+    "invoice": {
+		"header": {
+			"infofacture": {
+			"title" : "xxxxxxxxxx",
+			"typefacture": "xxxx",
+			"numerofacture": "xx",
+			"date": "Date",
+			"plusdate": "+Date",
+			"moinsdate": "-Date"
+			},
+			"fournisseur": {
+				"title" : "FOURNISSEUR",
+				"plusadresse": "+Adresse",
+				"moinsadresse": "-Adresse",
+				"detailadresse":{					
+					"adresse": "Adresse",
+					"rue": "Rue",
+					"codepostal": "Code Postal",
+					"ville": "Ville",
+					"pays" : "Pays"
+				},
+				"plusemplacement" : "+Emplacement",
+				"moinsemplacement" : "-Emplacement",
+				"plusdetailpartenair" : "+Details Partenair",
+				"moinsdetailpartenair" : "-Details Partenair",
+				"pluscontact": "+Contact",				
+				"contact" : {
+					"type" : "Type",
+					"identifiant" : "Identifiant",
+					"nom" : "Nom",
+					"plusmoyencommunication" : "+Moyen communcation",
+					"moinscontact": "-Contact",
+					"moyencommunication" : {
+						"moyen" : "Moyen",
+						"moinsmoyencommunication" :"-Moyen Communication"
+					}					
+				
+				}
+				
+			}
+		}	
+ }
+}

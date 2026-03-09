@@ -1,0 +1,154 @@
+<div class="wrapper1">
+  <section class="bg-transparent">
+    <div class="row">
+      <div class="col-md-12">
+        <br /><br />
+        <div class="row">
+          <div class="col-sm-12 form-box">
+            <div class="form-bottom">
+
+              <!-- Breadcrumb -->
+              <div class="row">
+                <div class="col-md-3">
+                  <ol class="breadcrumb">
+                    <li>
+                      <a [routerLink]="['/home']">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span class="hidden-sm" translate="global.menu.home">Home</span>
+                      </a>
+                    </li>
+                    <li class="active"><span>Profil Utilisateur</span></li>
+                  </ol>
+                </div>
+              </div>
+
+              <div class="top-content"><br /><br />
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-12 form-box">
+                      <div class="form-bottom">
+
+                        <h2
+                          translate="settings.title"
+                          [translateParams]="{ username: settingsAccount.login }"
+                        >
+                          User settings for [<b>{{ settingsAccount.login }}</b>]
+                        </h2>
+                        <hr /><br />
+
+                        @if (success()) {
+                          <div class="alert alert-success" translate="settings.messages.success">
+                            <strong>Settings saved!</strong>
+                          </div>
+                        }
+
+                        <app-alert-error />
+
+                        <form name="form" role="form" novalidate #f="ngForm" (ngSubmit)="save()">
+
+                          <!-- Prénom -->
+                          <div class="form-group">
+                            <label class="control-label" for="firstName"
+                                   translate="settings.form.firstname">First Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="firstName"
+                              name="firstName"
+                              [(ngModel)]="settingsAccount.firstName"
+                              #fn="ngModel"
+                              minlength="1"
+                              maxlength="50"
+                              required
+                            />
+                            @if (fn.dirty && fn.invalid) {
+                              @if (fn.errors?.['required'])  { <p class="help-block" translate="settings.messages.validate.firstname.required"></p> }
+                              @if (fn.errors?.['minlength']) { <p class="help-block" translate="settings.messages.validate.firstname.minlength"></p> }
+                              @if (fn.errors?.['maxlength']) { <p class="help-block" translate="settings.messages.validate.firstname.maxlength"></p> }
+                            }
+                          </div>
+
+                          <!-- Nom -->
+                          <div class="form-group">
+                            <label class="control-label" for="lastName"
+                                   translate="settings.form.lastname">Last Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="lastName"
+                              name="lastName"
+                              [(ngModel)]="settingsAccount.lastName"
+                              #ln="ngModel"
+                              minlength="1"
+                              maxlength="50"
+                              required
+                            />
+                            @if (ln.dirty && ln.invalid) {
+                              @if (ln.errors?.['required'])  { <p class="help-block" translate="settings.messages.validate.lastname.required"></p> }
+                              @if (ln.errors?.['minlength']) { <p class="help-block" translate="settings.messages.validate.lastname.minlength"></p> }
+                              @if (ln.errors?.['maxlength']) { <p class="help-block" translate="settings.messages.validate.lastname.maxlength"></p> }
+                            }
+                          </div>
+
+                          <!-- Email -->
+                          <div class="form-group">
+                            <label class="control-label" for="email"
+                                   translate="global.form.email">E-mail</label>
+                            <input
+                              type="email"
+                              class="form-control"
+                              id="email"
+                              name="email"
+                              [(ngModel)]="settingsAccount.email"
+                              #em="ngModel"
+                              minlength="5"
+                              maxlength="100"
+                              required
+                            />
+                            @if (em.dirty && em.invalid) {
+                              @if (em.errors?.['required'])  { <p class="help-block" translate="global.messages.validate.email.required"></p> }
+                              @if (em.errors?.['email'])     { <p class="help-block" translate="global.messages.validate.email.invalid"></p> }
+                              @if (em.errors?.['minlength']) { <p class="help-block" translate="global.messages.validate.email.minlength"></p> }
+                              @if (em.errors?.['maxlength']) { <p class="help-block" translate="global.messages.validate.email.maxlength"></p> }
+                            }
+                          </div>
+
+                          <!-- Langue -->
+                          <div class="form-group">
+                            <label for="langKey" translate="settings.form.language">Language</label>
+                            <select
+                              id="langKey"
+                              name="langKey"
+                              class="form-control"
+                              [(ngModel)]="settingsAccount.langKey"
+                            >
+                              @for (lang of languages; track lang) {
+                                <option [value]="lang">{{ lang }}</option>
+                              }
+                            </select>
+                          </div>
+
+                          <br />
+                          <button
+                            type="submit"
+                            [disabled]="f.invalid"
+                            class="btn btn-primary"
+                            translate="settings.form.button"
+                          >Save</button>
+                          <br />
+                        </form>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br /><br /><br />
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

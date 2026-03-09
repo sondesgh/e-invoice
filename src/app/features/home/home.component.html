@@ -1,0 +1,113 @@
+<div class="wrapper1">
+  <section class="bg-transparent">
+    <div class="row">
+      <div class="col-md-12">
+        <br /><br />
+
+        <div class="row">
+          <div class="col-sm-12 form-box">
+            <div class="form-bottom">
+
+              <!-- Titre de bienvenue -->
+              <div class="title-block text-center">
+                <h4 translate="home.title"
+                    [translateParams]="{ username: account()?.login }">
+                  Welcome, in ElFatoora Portal!
+                </h4>
+                <div class="line-block">
+                  <span class="bullet"><i class="fa fa-smile-o"></i></span>
+                </div>
+              </div>
+              <br />
+
+              <h5 class="page-header">EL FATOORA DOCUMENTATION:</h5>
+              <br />
+
+              <div class="row">
+
+                <!-- Colonne gauche -->
+                <div class="col-md-6">
+                  <ul class="list style2">
+                    <li>
+                      <a href="javascript:void(0)"
+                         (click)="download('xsd','facture_INVOIC_V1.8.3.xsd')">
+                        <img alt="" src="content/images/xsd.gif" />
+                        <span translate="home.downloads.xsd.title"></span>
+                      </a>
+                      <span translate="home.downloads.xsd.detail"></span>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)"
+                         (click)="download('annexe','ANNEXE-A-RéférentielsTEIF-V1.5.pdf')">
+                        <img alt="" src="content/images/pdf_20.gif" />
+                        <span translate="home.downloads.annexe.title"></span>
+                      </a>
+                      <span translate="home.downloads.annexe.detail"></span>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)"
+                         (click)="download('guideimpl','Guide-Implementation-TEIF_V1.5.pdf')">
+                        <img alt="" src="content/images/pdf_20.gif" />
+                        <span translate="home.downloads.guideimpl.title"></span>
+                      </a>
+                      <span translate="home.downloads.guideimpl.detail"></span>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)"
+                         (click)="download('specdsig','Spec-signature4.pdf')">
+                        <img alt="" src="content/images/pdf_20.gif" />
+                        <span translate="home.downloads.specdsig.title"></span>
+                      </a>
+                      <span translate="home.downloads.specdsig.detail"></span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Colonne droite -->
+                <div class="col-md-6">
+                  <ul class="list style2">
+                    <li>
+                      <a href="javascript:void(0)"
+                         (click)="download('specws','Spec-webservicesv5.pdf')">
+                        <img alt="" src="content/images/pdf_20.gif" />
+                        <span translate="home.downloads.specws.title"></span>
+                      </a>
+                      <span translate="home.downloads.specws.detail"></span>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)"
+                         (click)="download('specftp','Spec-ftp.pdf')">
+                        <img alt="" src="content/images/pdf_20.gif" />
+                        <span translate="home.downloads.specftp.title"></span>
+                      </a>
+                      <span translate="home.downloads.specftp.detail"></span>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)"
+                         (click)="download('expteifjpg','facture_desc_XSD1.8.jpg')">
+                        <img alt="" src="content/images/img.gif" />
+                        <span translate="home.downloads.expinvoice.title"></span>
+                      </a>
+                      <span translate="home.downloads.expinvoice.detail"></span>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0)"
+                         (click)="download('expteifpdf','Exemple_facture.pdf')">
+                        <img alt="" src="content/images/pdf_20.gif" />
+                        <span translate="home.downloads.expinvoice1.title"></span>
+                      </a>
+                      <span translate="home.downloads.expinvoice1.detail"></span>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>

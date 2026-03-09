@@ -1,0 +1,50 @@
+{
+    "home": {
+        "title": "Bienvenue {{username}}, dans votre espace client  !",
+        "subtitle": "",
+        "logged": {
+            "message": "Vous êtes connecté en tant que \"{{username}}\"."
+        },
+        "question": "Si vous avez des questions à propos de la facture electronique, vous pouvez nous : ",
+        "link": {
+            "homepage": "Page d'accueil ElFatoora",
+            "details": "Plus de Détails"
+        },
+        "like": "",
+        "downloads": {
+	        "specws": {
+	                  "title": "Spécifications techniques pour les Web Services",
+	                  "detail": "pdf - 758 ko"
+	                  },
+	          "specftp": {
+	                  "title": "Spécifications techniques pour les échanges FTP",
+	                  "detail": "pdf - 601 ko"
+	                  },
+	        "specdsig": {
+	                  "title": "Spécifications techniques pour la signature électronique",
+	                  "detail": "pdf - 1315 ko"
+	                  },
+	        "xsd": {
+	                  "title": "Schema elfatoora version 1.8.7",
+	                  "detail": "xsd - 25 ko"
+	                },
+	        "annexe": {
+	                  "title": "ANNEXE A-Référentiels TEIF version 1.5",
+	                  "detail": " pdf - 591 ko"
+	                },
+	        "guideimpl": {
+	                  "title": "Guide d’implémentation du format national de la facture électronique TEIF",
+	                  "detail": "pdf - 2561 ko"
+	                },
+            "expinvoice": {
+              "title": "Example de facture",
+              "detail": "pdf - 59 ko"
+            },
+	        "expinvoice1": {
+	                  "title": "Example de facture de format général",
+	                  "detail": "jpg - 865 ko"
+	                }
+        
+        }
+    }
+}

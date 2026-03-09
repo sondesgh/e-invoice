@@ -1,0 +1,172 @@
+@use 'sass:color';
+
+// ── Tokens (identiques login.component.scss) ──────────────────────────────────
+$bg:          #0d1117;
+$card-bg:     #161b22;
+$accent:      #0f6b8a;
+$accent-glow: rgba(15, 107, 138, 0.4);
+$text:        #c9d1d9;
+$text-muted:  #8b949e;
+$border:      rgba(255, 255, 255, 0.08);
+$danger:      #f85149;
+$radius:      10px;
+$transition:  0.2s ease;
+
+// ── Overlay ───────────────────────────────────────────────────────────────────
+.card-overlay {
+  position:        fixed;
+  inset:           0;
+  background:      rgba(0, 0, 0, .65);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  z-index:         1050;
+  padding:         16px;
+  backdrop-filter: blur(3px);
+  animation:       overlayIn .2s ease both;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ── Dialog ────────────────────────────────────────────────────────────────────
+.card-dialog {
+  width:         100%;
+  max-width:     460px;
+  background:    $card-bg;
+  border:        1px solid $border;
+  border-radius: $radius + 4px;
+  box-shadow:    0 16px 48px rgba(0, 0, 0, .6);
+  overflow:      hidden;
+  animation:     dialogIn .25s ease both;
+}
+
+@keyframes dialogIn {
+  from { opacity: 0; transform: scale(.96) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);   }
+}
+
+// ── En-tête ───────────────────────────────────────────────────────────────────
+.card-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         18px 24px;
+  border-bottom:   1px solid $border;
+}
+
+.card-title {
+  margin:      0;
+  font-size:   1rem;
+  font-weight: 500;
+  color:       #fff;
+  font-family: 'NeoSansStd', Arial, sans-serif;
+
+  .fa { color: $accent; margin-right: 8px; }
+}
+
+.btn-close-dialog {
+  background:    none;
+  border:        none;
+  color:         $text-muted;
+  font-size:     1.1rem;
+  cursor:        pointer;
+  padding:       4px 8px;
+  border-radius: 4px;
+  transition:    color $transition, background $transition;
+
+  &:hover { color: #fff; background: rgba(255,255,255,.08); }
+}
+
+// ── Corps ─────────────────────────────────────────────────────────────────────
+.card-body {
+  padding: 24px;
+}
+
+// ── Alerte ────────────────────────────────────────────────────────────────────
+.alert-danger {
+  background:    rgba(248, 81, 73, .1);
+  border:        1px solid rgba(248, 81, 73, .3);
+  color:         $danger;
+  border-radius: $radius;
+  padding:       10px 14px;
+  font-size:     .85rem;
+  margin-bottom: 18px;
+  line-height:   1.5;
+
+  .fa { margin-right: 6px; }
+}
+
+// ── Instructions ──────────────────────────────────────────────────────────────
+.card-instructions {
+  color:         $text-muted;
+  font-size:     .88rem;
+  margin-bottom: 24px;
+  line-height:   1.6;
+
+  .fa { color: $accent; margin-right: 6px; }
+}
+
+// ── Boutons ───────────────────────────────────────────────────────────────────
+.card-actions {
+  display:   flex;
+  gap:       12px;
+  flex-wrap: wrap;
+}
+
+%btn-base {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             8px;
+  padding:         10px 20px;
+  border-radius:   $radius;
+  font-size:       .9rem;
+  font-family:     inherit;
+  font-weight:     500;
+  cursor:          pointer;
+  border:          1px solid transparent;
+  transition:      background $transition, transform $transition, box-shadow $transition;
+
+  &:disabled {
+    opacity: .6;
+    cursor:  not-allowed;
+    transform: none !important;
+  }
+}
+
+.btn-card-sign {
+  @extend %btn-base;
+  background: $accent;
+  color:      #fff;
+  flex:       1;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($accent, $lightness: 8%);
+    transform:  translateY(-1px);
+    box-shadow: 0 4px 14px $accent-glow;
+  }
+
+  &.loading { cursor: wait; }
+
+  .fa-spinner { animation: spin .7s linear infinite; }
+}
+
+.btn-card-cancel {
+  @extend %btn-base;
+  background:   transparent;
+  color:        $text-muted;
+  border-color: $border;
+
+  &:hover:not(:disabled) {
+    background: rgba(255,255,255,.06);
+    color:      $text;
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

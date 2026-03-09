@@ -1,0 +1,158 @@
+/* navbar.css — patché : media imbriqué corrigé + accolade manquante ajoutée */
+
+.navbar {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    height: 40px;
+    padding: 5px 15px;
+    font-size: 12px;
+    line-height: 1em;
+}
+
+.navbar-text {
+    float: left;
+    margin-right: 15px;
+    margin-left: -10px;
+    margin-top: 24px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    text-shadow: 0 1px 0 #2831a1;
+}
+
+.navbar-brand h1 {
+    color: #d9edf7;
+    text-shadow: 0 2px 0 black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 40px;
+}
+
+.navbar-brand:focus {
+    outline: 0;
+}
+
+.navbar-custom ul.nav li a {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.navbar-custom.top-nav-collapse ul.nav li a {
+    transition: all .2s ease-in-out;
+    color: #fff;
+}
+
+.navbar-custom ul.nav ul.dropdown-menu {
+    border-radius: 0;
+}
+
+.navbar-custom ul.nav ul.dropdown-menu li {
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.navbar-custom ul.nav ul.dropdown-menu li:last-child {
+    border-bottom: none;
+}
+
+.navbar-custom ul.nav ul.dropdown-menu li a {
+    padding: 10px 20px;
+}
+
+.navbar-custom ul.nav ul.dropdown-menu li a:hover {
+    background: #fefefe;
+}
+
+.navbar-custom.top-nav-collapse ul.nav ul.dropdown-menu li a {
+    color: #666;
+}
+
+.navbar-custom .nav li a {
+    transition: background .3s ease-in-out;
+}
+
+.navbar-custom .nav li a:hover,
+.navbar-custom .nav li a:focus,
+.navbar-custom .nav li.active {
+    outline: 0;
+    background-color: rgba(255,255,255,.2);
+}
+
+.navbar-toggle {
+    padding: 4px 6px;
+    font-size: 12px;
+    color: #fff;
+}
+
+.navbar-toggle:focus,
+.navbar-toggle:active {
+    outline: 0;
+}
+
+.navbar-nav {
+    float: left;
+    margin-top: 10px;
+}
+
+/* ── Desktop ≥ 767px ────────────────────────────────────────────────────── */
+@media (min-width: 767px) {
+    .navbar {
+        padding: 20px 0;
+        border-bottom: 0;
+        letter-spacing: 1px;
+        background: 0 0;
+        transition: background .5s ease-in-out, padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+        background-color: #000;
+    }
+
+    .navbar-custom.top-nav-collapse {
+        border-bottom: 1px solid rgba(255,255,255,.3);
+    }
+
+    .navbar-fixed-top,
+    .navbar-fixed-bottom {
+        position: fixed;
+        left: inherit;
+        right: inherit;
+        width: 100%;
+    }
+}
+/* FIN @media min-width:767px — accolade fermante ajoutée (manquait dans l'original) */
+
+/* ── Mobile ≤ 480px ─────────────────────────────────────────────────────── */
+/* Était imbriqué dans le @media 767px (CSS invalide) — déplacé au niveau racine */
+@media (max-width: 480px) {
+    .navbar-custom .nav.navbar-nav {
+        background-color: rgba(255,255,255,.4);
+    }
+
+    .navbar.navbar-custom.navbar-fixed-top {
+        margin-bottom: 30px;
+    }
+
+    .tp-banner-container {
+        padding-top: 40px;
+    }
+
+    .page-scroll a.btn-circle {
+        width: 40px;
+        height: 40px;
+        margin-top: 10px;
+        padding: 7px 0;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        font-size: 20px;
+    }
+}

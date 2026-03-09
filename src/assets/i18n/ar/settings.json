@@ -1,0 +1,32 @@
+{
+    "settings": {
+        "title": "[{{username}}] البيانات الشخصية",
+        "form": {
+            "firstname": " الإسم",
+            "firstname.placeholder": " الإسم",
+            "lastname": "اللقب",
+            "lastname.placeholder": "اللقب",
+            "language": "اللغة",
+            "button": "حفظ البيانات"
+        },
+        "messages": {
+            "error": {
+                "fail": "<strong>!حدث خطأ</strong> .لم يتم حفظ ملفك الشخصي",
+                "emailexists": "<strong>!البريد الإلكتروني مستخدم</strong>.الرجاء اختيار بريد آخر"
+            },
+            "success": "<strong>!تم حفظ ملفك الشخصي</strong>",
+            "validate": {
+                "firstname": {
+                    "required": ".الاسم إجباري",
+                    "minlength": "Votre prénom doit comporter au moins un caractère",
+                    "maxlength": "Votre prénom ne doit pas comporter plus de 50 caractères"
+                },
+                "lastname": {
+                    "required": "Votre nom est requis.",
+                    "minlength": "Votre nom doit comporter au moins un caractère",
+                    "maxlength": "Votre nom ne doit pas comporter plus de 50 caractères"
+                }
+            }
+        }
+    }
+}

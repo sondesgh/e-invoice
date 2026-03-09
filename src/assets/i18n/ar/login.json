@@ -1,0 +1,23 @@
+{
+    "login": {
+        "title": "تسجيل الدخول",
+        "form": {
+            "password": "كلمة السر",
+            "password.placeholder": "كلمة السر الخاصة بك",
+            "rememberme": "حفظ تسجيل الدخول",
+            "button": "تسجيل الدخول",
+            "inscriptiondemande": "التسجيل في <strong>الفاتورة</strong> ",
+            "cansubcribe" :"!إن كنت لا تملك حساب يمكنك التسجيل",
+            "subcribe" :"فتح حساب",
+            "entercredential" :"",
+            "accessspaceclt" :":أدخل إسم المستخدم وكلمة السر",
+            "connection" :"تسجيل الدخول"
+        },
+        "messages": {
+            "error": "<strong>خطأ: يرجى التحقق من تسجيل الدخول</strong>"
+        },
+        "password" : {
+            "forgot": "هل نسيت كلمة السر؟"
+        }
+    }
+}

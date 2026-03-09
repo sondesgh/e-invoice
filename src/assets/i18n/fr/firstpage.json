@@ -1,0 +1,142 @@
+{
+  "firstpage": {
+	        "subtitle": "Bienvenue à ElFatoora",
+	        "subtitle1": "ELFATOORA",
+	        "subtitle2": "Le portail de la facture électronique",
+	        "subcribe": "S'inscrire",
+	        "connection": "Accéder à votre espace client",
+	        "intro": {
+	            "connection": {
+	            "desc": "Connectez-vous à votre Espace Client",
+	            "btn": "Se Connecter"
+	            },
+	            "subscribe": {
+	             "desc": "Vous n'avez pas encore de compte ?",
+	             "btn": "S'inscrire"
+	            }
+	         },
+	         "home": {
+		        "title": "Bienvenue {{username}}, dans votre espace client  !",
+		        "subtitle": "",
+		        "logged": {
+		            "message": "Vous êtes connecté en tant que \"{{username}}\"."
+		        },
+		        "question": "Si vous avez des questions à propos de la facture electronique, vous pouvez nous : ",
+		        "link": {
+		            "homepage": "Page d'accueil ElFatoora",
+		            "details": "Plus de Détails"
+		        },
+		        "like": "",
+		        "downloads": {
+			        "specws": {
+			                  "title": "Spécifications techniques pour les Web Services",
+			                  "detail": "pdf - 758 ko"
+			                  },
+			          "specftp": {
+			                  "title": "Spécifications techniques pour les échanges FTP",
+			                  "detail": "pdf - 601 ko"
+			                  },
+			        "specdsig": {
+			                  "title": "Spécifications techniques pour la signature électronique",
+			                  "detail": "pdf - 1315 ko"
+			                  },
+			        "xsd": {
+			                  "title": "Schema elfatoora version 1.8.7",
+			                  "detail": "xsd - 25 ko"
+			                },
+			        "annexe": {
+			                  "title": "ANNEXE A-Référentiels TEIF version 1.5",
+			                  "detail": " pdf - 591 ko"
+			                },
+			        "guideimpl": {
+			                  "title": "Guide d’implémentation du format national de la facture électronique TEIF",
+			                  "detail": "pdf - 2561 ko"
+			                },
+		            "expinvoice": {
+		              "title": "Example de facture",
+		              "detail": "pdf - 59 ko"
+		            },
+			        "expinvoice1": {
+			                  "title": "Example de facture de format général",
+			                  "detail": "jpg - 865 ko"
+			                }
+		        
+		        }
+		        },
+	        "service": {
+	            "title": "SERVICES",
+	            "service1": "SAISIE",
+	            "servdesc1": "Vous pouvez saisir vos factures pour les envoyer à la plateforme el fatoora vous permettant ainsi de recevoir votre référence unique et proposer votre facture à votre client.",
+	            "service2": "CONSULTATION",
+	            "service22": "Consultation par Reférence unique",
+	            "servdesc2": "Vous avez accès à la rubrique consultation via des critères de recherche vous permettant de visualiser votre facture.",
+	            "service3": "IMPRESSION",
+	            "servdesc3": "Vous pouvez générer vos factures au format pdf en cas de besoin.",
+	            "service4": "GESTION SIGNATAIRE",
+	            "servdesc4": "Via la rubrique Signataire, vous pouvez déléguer le pouvoir de signature de la facture électronique aux utilisateurs concernés.",
+	            "service5": "DOCUMENTATION",
+	            "servdesc5": "Pour profiter du service el fatoora, des documents sont mis à votre disposition qui vous décrivent la démarche à suivre pour travailler avec la facture électronique",
+	            "service6": "ESPACE TEST",
+	            "servdesc6": "En accédant à un espace de test, vous pouvez vérifier la validité de votre facture électronique selon la version du xsd utilisée."
+	        },
+	        "docs": {
+	            "title": "TELECHARGEMENT",
+	            "service2": "GUIDE UTILLISATEUR",
+	            "service2link": "http://www.google.com",
+	            "servdesc2": "Un guide a été conçu pour l’utilisation du portail el fatoora et pour répondre aux éventuelles questions que vous pourriez vous poser au cours de son utilisation.",
+	            "service3": "OUTILS",
+	            "servdesc3": "Un agent de signature électronique dédié spécifiquement aux utilisateurs signataires pour faciliter l'utilisation des cartes et de clés de la signature électronique.",
+	            "service4": "SPECIFICATIONS TECHNIQUES",
+	            "servdesc4":"Des documents sont mis à votre disposition vous fournissant une description des conditions minimales exigées pour travailler avec la facture electronique: Solution d'échange FTP, web service...",
+	            "service1": "DECRETS ET LOI DES FINANCES",
+	            "servdesc1":"Téléchargez la loi des Finances 2016 qui a instauré la facturation électronique en Tunisie ainsi que le décret gouvernemental et l'arrêté associés",
+	            "servdesc11":"Loi des Finances 2016",
+	            "servdesc12":"Décret gouvernemental n° 2016-1066 du 15 aout 2016",
+	            "servdesc13":"Arrêté de la ministre des finances du 28 mars 2016",
+	            "specws": "Specs web services",
+	            "specftp": "Specs échange par ftp",
+	            "specsig": " Specs signature électronique"
+	          },
+	        "contact": {
+	            "title": "CONTACT",
+	            "name": "Nom",
+	            "socity": "Société",
+	            "coddou": "Matricule Fiscal",
+	            "email": "Email",
+	            "nbrinvoice": "Nombre de factures par an", 
+	            "subject": "Sujet",
+	            "choose": "Choisir",
+	            "service": "Demande d'information",
+	            "service1": "Demande documentation technique",
+	            "service2": "Demande de démarrage Test",
+	            "send": "Envoyer Message",
+	            "message": "Message",
+	            "office": "Bureau Principal",
+	            "namedesc": "Saisir nom",
+	            "socitydesc": "Saisir nom Société",
+	            "coddoudesc": "Saisir matricule fiscal",
+	            "emaildesc": "Saisir email",
+	            "nbrinvoicedesc": "Saisir nbr factures traitées par an",
+	            "teldesc": "Saisir num tel"
+	          },
+	    "form": {
+	            "password": "Mot de passe",
+	            "password.placeholder": "Votre mot de passe",
+	            "rememberme": "Garder la session ouverte",
+	            "button": "Connexion",
+	            "inscriptiondemande": "Inscription au service <strong>ElFatoora</strong>",
+	            "cansubcribe" :"Si vous n'êtes pas client vous pouvez vous inscrire!",
+	            "subcribe" :"S'inscrire",
+	            "entercredential" :"Saisir Login et Mot de Passe:",
+	            "accessspaceclt" :"Espace Client",
+	            "connection" :"Connection"
+	      },
+	        "messages": {
+	            "error": "<strong>Erreur d'authentification!</strong> Veuillez vérifier vos identifiants de connexion."
+	        },
+	        "password" : {
+	            "forgot": "Avez-vous oublié votre mot de passe?"
+	        }
+	    
+	    }
+}

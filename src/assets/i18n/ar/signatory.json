@@ -1,0 +1,28 @@
+{
+    "portailElFatooraApp": {
+        "signatory" : {
+            "home": {
+                "title": "Signatories",
+                "createLabel": "Créer un nouveau Signatory",
+                "createOrEditLabel": "Créer ou éditer un Signatory",
+                "search": "Recherche pour Signatory"
+            },
+            "created": "Un nouveau Signatory a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Signatory avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Signatory avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Signatory {{ id }} ?"
+            },
+            "detail": {
+                "title": "Signatory"
+            },
+            "serialNumber": "Serial Number",
+            "signatoryEmail": "Signatory Email",
+            "signatoryName": "Signatory Name",
+            "accountType": "Account Type",
+            "signValidFrom": "Sign Valid From",
+            "signValidTo": "Sign Valid To",
+            "partner": "Partner"
+        }
+    }
+}

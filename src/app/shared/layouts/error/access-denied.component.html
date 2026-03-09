@@ -1,0 +1,34 @@
+<div class="wrapper1">
+  <br /><br />
+
+  <section class="bg-transparent">
+    <div class="invoicewell">
+      <div class="col-md-8">
+
+        <h1 translate="error.title">Error Page!</h1>
+
+        <!-- 403 : authentifié mais non autorisé -->
+        @if (isAuthenticated) {
+          <div class="alert alert-danger" translate="error.403">
+            You are not authorized to access the page.
+          </div>
+        }
+
+        <!-- 401 : non authentifié -->
+        @if (!isAuthenticated) {
+          <div class="alert alert-warning">
+            Vous devez être connecté pour accéder à cette page.
+          </div>
+          <a [routerLink]="['/login']" class="btn btn-primary">
+            <span class="glyphicon glyphicon-log-in"></span>&nbsp;Se connecter
+          </a>
+        }
+
+        <a [routerLink]="['/home']" class="btn btn-default" style="margin-left:8px">
+          <span class="glyphicon glyphicon-home"></span>&nbsp;Accueil
+        </a>
+
+      </div>
+    </div>
+  </section>
+</div>

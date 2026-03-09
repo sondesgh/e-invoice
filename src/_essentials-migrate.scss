@@ -1,0 +1,185 @@
+// ══════════════════════════════════════════════════════════════════════════════
+// _essentials-migrate.scss
+// Migration d'essentials.css → SCSS pur, sans assets introuvables
+// ══════════════════════════════════════════════════════════════════════════════
+//
+// CE FICHIER REMPLACE src/assets/css/essentials.css
+// Retirez essentials.css de angular.json > styles[] et importez ce fichier
+// depuis styles.scss avec :  @use 'essentials-migrate';
+//
+// SUPPRIMÉ (dead code / assets manquants) :
+//   ✗ @font-face Glyphicons Bootstrap 3  → remplacé par Font Awesome (npm)
+//   ✗ @font-face et-line                 → icônes non utilisées dans Angular 19
+//   ✗ @font-face font-icons              → idem
+//   ✗ background-image patterns 1-11     → UI admin legacy non migrée
+//   ✗ cursor: url(grabbing.png)          → remplacé par cursor: grabbing (CSS natif)
+//   ✗ Owl Carousel (owl.video.play.png)  → non utilisé dans Angular 19
+//   ✗ .col-xs-* Bootstrap 3              → Bootstrap 5 utilise .col-sm-*
+//   ✗ IE8/IE9 hacks (-ms-filter, filter) → navigateurs non supportés
+//
+// CONSERVÉ :
+//   ✓ Reset formulaires / boutons / images
+//   ✓ Transitions globales sur <a>
+//   ✓ Sélection de texte
+//   ✓ Textarea resize
+//   ✓ Helpers layout utilisés par les pages existantes
+//
+
+// ── 1. Reset éléments de formulaire ─────────────────────────────────────────
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border:  0;
+  padding: 0;
+}
+
+:active,
+:focus {
+  outline:             none !important;
+  box-shadow:          none !important;
+  -webkit-appearance:  none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+// ── 2. Sélection de texte ────────────────────────────────────────────────────
+::selection         { color: #fff; text-shadow: none; background: #333; }
+::-moz-selection    { color: #fff; text-shadow: none; background: #333; }
+
+// ── 3. Bouton reset ──────────────────────────────────────────────────────────
+button {
+  background: none;
+  border:     0;
+  margin:     0;
+  padding:    0;
+  cursor:     pointer;
+}
+
+// ── 4. Images ────────────────────────────────────────────────────────────────
+img {
+  border:         0;
+  vertical-align: top;
+}
+
+// ── 5. Autofill ──────────────────────────────────────────────────────────────
+input:-webkit-autofill {
+  color: #ffffff !important;
+}
+
+// ── 6. Textarea ──────────────────────────────────────────────────────────────
+textarea {
+  resize: vertical;
+}
+
+textarea,
+input,
+button,
+*:focus {
+  outline: none !important;
+}
+
+// ── 7. Select ────────────────────────────────────────────────────────────────
+select {
+  border:        2px solid #E5E7E9;
+  height:        46px;
+  padding:       12px;
+  outline:       none;
+  line-height:   1 !important;
+  border-radius: 3px;
+}
+
+// ── 8. Label ────────────────────────────────────────────────────────────────
+label {
+  font-weight: 400;
+}
+
+// ── 9. Iframe / fieldset ─────────────────────────────────────────────────────
+iframe,
+fieldset {
+  border:  0;
+  margin:  0;
+  padding: 0;
+}
+
+// ── 10. Éléments inline-block ────────────────────────────────────────────────
+audio, canvas, img, video {
+  vertical-align: middle;
+}
+
+// ── 11. Paragraphes ──────────────────────────────────────────────────────────
+p {
+  display:              block;
+  -webkit-margin-before: 0.1em;
+  -webkit-margin-after:  0.1em;
+  -webkit-margin-start:  0;
+  -webkit-margin-end:    0;
+}
+
+// ── 12. Transition globale sur liens ─────────────────────────────────────────
+a {
+  transition: all 0.3s;
+}
+
+// ── 13. Cursor drag natif CSS (remplace grabbing.png) ────────────────────────
+// ↳ était : cursor: url(../images/_smarty/grabbing.png) 8 8, move
+//   → CSS Level 3 natif, aucun asset requis
+[draggable="true"],
+.draggable {
+  cursor: grab;
+  &:active { cursor: grabbing; }
+}
+
+// ── 14. Helpers layout (conservés car utilisés dans les pages) ────────────────
+.clearfix::after {
+  content:  '';
+  display:  table;
+  clear:    both;
+}
+
+.hidden        { display: none !important; }
+.invisible     { visibility: hidden; }
+.text-center   { text-align: center; }
+.text-right    { text-align: right; }
+.text-left     { text-align: left; }
+.pull-left     { float: left !important; }
+.pull-right    { float: right !important; }
+.block         { display: block; }
+.inline-block  { display: inline-block; }
+.relative      { position: relative; }
+.absolute      { position: absolute; }
+.full-width    { width: 100%; }
+.full-height   { height: 100%; }
+
+// ── 15. Espacements utilitaires (subset Bootstrap 4 legacy) ──────────────────
+// Bootstrap 5 gère mt-*, mb-*, etc. — on garde seulement les classes custom
+// du thème qui ne sont PAS dans Bootstrap 5
+.nomargin   { margin:  0 !important; }
+.nopadding  { padding: 0 !important; }
+
+// ── 16. Owl Carousel — stub sans assets ──────────────────────────────────────
+// Owl Carousel n'est pas utilisé dans Angular 19.
+// Si vous réactivez Owl, installez : npm install ngx-owl-carousel-o
+// et supprimez ce stub.
+// Les règles .owl-carousel, .owl-stage, etc. sont omises intentionnellement.
+
+// ── 17. Glyphicons — remplacement par Font Awesome ───────────────────────────
+// Bootstrap 3 Glyphicons sont supprimés.
+// Font Awesome est chargé via npm (angular.json > styles[]).
+// Mappings courants :
+//   .glyphicon-ok        → .fa.fa-check
+//   .glyphicon-remove    → .fa.fa-times
+//   .glyphicon-search    → .fa.fa-search
+//   .glyphicon-user      → .fa.fa-user
+//   .glyphicon-envelope  → .fa.fa-envelope
+//   .glyphicon-lock      → .fa.fa-lock
+//   .glyphicon-cog       → .fa.fa-cog
+//
+// Stub de compatibilité (évite les erreurs de rendu si des classes glyphicon
+// trainent encore dans des templates non migrés) :
+[class^="glyphicon-"],
+[class*=" glyphicon-"] {
+  font-family:  'FontAwesome', sans-serif !important;
+  font-style:   normal;
+  font-weight:  normal;
+  speak:        none;
+  display:      inline-block;
+  -webkit-font-smoothing: antialiased;
+}

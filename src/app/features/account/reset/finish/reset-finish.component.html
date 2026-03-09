@@ -1,0 +1,115 @@
+<div class="wrapper1">
+  <br /><br />
+
+  <div class="invoicewell">
+    <br /><br />
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+
+        <h3 translate="reset.finish.title">Reset password</h3>
+
+        <!-- Clé manquante -->
+        @if (keyMissing()) {
+          <div class="alert alert-danger" translate="reset.finish.messages.keymissing">
+            <strong>The password reset key is missing.</strong>
+          </div>
+        }
+
+        <!-- Invitation à choisir un nouveau mot de passe -->
+        @if (!success() && !keyMissing()) {
+          <div class="alert alert-warning">
+            <p translate="reset.finish.messages.info">Choose a new password</p>
+          </div>
+        }
+
+        <!-- Erreur -->
+        @if (error()) {
+          <div class="alert alert-danger">
+            <p translate="reset.finish.messages.error">
+              Your password couldn't be reset. Remember a password request is only valid for 24 hours.
+            </p>
+          </div>
+        }
+
+        <!-- Succès -->
+        @if (success()) {
+          <div class="alert alert-success">
+            <p>
+              <strong translate="reset.finish.messages.success">Your password has been reset.</strong>
+              Please <a class="alert-link" [routerLink]="['/login']">sign in</a>.
+            </p>
+          </div>
+        }
+
+        <!-- Passwords ne correspondent pas -->
+        @if (doNotMatch()) {
+          <div class="alert alert-danger" translate="global.messages.error.dontmatch">
+            The password and its confirmation do not match!
+          </div>
+        }
+
+        <!-- Formulaire (masqué si clé manquante ou succès) -->
+        @if (!keyMissing() && !success()) {
+          <form name="form" role="form" novalidate #f="ngForm" (ngSubmit)="finishReset()">
+
+            <!-- Nouveau mot de passe -->
+            <div class="form-group">
+              <label class="control-label" for="password"
+                     translate="global.form.newpassword">New password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                [(ngModel)]="newPassword"
+                #pwd="ngModel"
+                minlength="4"
+                maxlength="50"
+                required
+                autofocus
+              />
+              @if (pwd.dirty && pwd.invalid) {
+                @if (pwd.errors?.['required'])  { <p class="help-block" translate="global.messages.validate.newpassword.required"></p> }
+                @if (pwd.errors?.['minlength']) { <p class="help-block" translate="global.messages.validate.newpassword.minlength"></p> }
+                @if (pwd.errors?.['maxlength']) { <p class="help-block" translate="global.messages.validate.newpassword.maxlength"></p> }
+              }
+              <app-password-strength-bar [passwordToCheck]="newPassword" />
+            </div>
+
+            <!-- Confirmation -->
+            <div class="form-group">
+              <label class="control-label" for="confirmPassword"
+                     translate="global.form.confirmpassword">New password confirmation</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                name="confirmPassword"
+                [(ngModel)]="confirmPassword"
+                #cpwd="ngModel"
+                minlength="4"
+                maxlength="50"
+                required
+              />
+              @if (cpwd.dirty && cpwd.invalid) {
+                @if (cpwd.errors?.['required'])  { <p class="help-block" translate="global.messages.validate.confirmpassword.required"></p> }
+                @if (cpwd.errors?.['minlength']) { <p class="help-block" translate="global.messages.validate.confirmpassword.minlength"></p> }
+                @if (cpwd.errors?.['maxlength']) { <p class="help-block" translate="global.messages.validate.confirmpassword.maxlength"></p> }
+              }
+            </div>
+
+            <br />
+            <button
+              type="submit"
+              [disabled]="f.invalid"
+              class="btn btn-primary"
+              translate="reset.finish.form.button"
+            >Reset Password</button>
+
+          </form>
+        }
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="wrapper1">
+  <section class="bg-transparent">
+    <div class="row">
+      <div class="col-md-12">
+        <br /><br />
+        <div class="row">
+          <div class="col-sm-12 form-box">
+            <div class="form-bottom">
+
+              <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+
+                  <h3 translate="reset.request.title">Reset your password</h3>
+
+                  <!-- Erreur -->
+                  @if (errorShow()) {
+                    <div class="alert alert-danger">
+                      <strong>{{ errorMessage() }}</strong>
+                    </div>
+                  }
+
+                  <!-- Succès -->
+                  @if (success()) {
+                    <div class="alert alert-success">
+                      <p translate="reset.request.messages.success">
+                        Check your e-mails for details on how to reset your password.
+                      </p>
+                    </div>
+                  }
+
+                  <!-- Formulaire (masqué après succès) -->
+                  @if (!success()) {
+                    <form name="form" role="form" novalidate #f="ngForm" (ngSubmit)="requestReset()">
+
+                      <!-- Email -->
+                      <div class="form-group">
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          name="email"
+                          [(ngModel)]="email"
+                          #em="ngModel"
+                          placeholder="{{ 'global.form.email.placeholder' | translate }}"
+                          minlength="5"
+                          maxlength="100"
+                          required
+                          autofocus
+                        />
+                        @if (em.dirty && em.invalid) {
+                          @if (em.errors?.['required'])  { <p class="help-block" translate="global.messages.validate.email.required"></p> }
+                          @if (em.errors?.['email'])     { <p class="help-block" translate="global.messages.validate.email.invalid"></p> }
+                          @if (em.errors?.['minlength']) { <p class="help-block" translate="global.messages.validate.email.minlength"></p> }
+                          @if (em.errors?.['maxlength']) { <p class="help-block" translate="global.messages.validate.email.maxlength"></p> }
+                        }
+                      </div>
+
+                      <!-- Captcha reset (URL différente du captcha login) -->
+                      <div class="form-captcha">
+                        <div class="row">
+                          <div class="form-group">
+
+                            <div class="col-md-4">
+                              <img
+                                id="captchaPass_id"
+                                [src]="captchaUrl"
+                                alt="captcha"
+                                style="cursor:pointer;"
+                                (click)="refreshCaptcha()"
+                              />
+                            </div>
+
+                            <div class="col-md-6">
+                              <input
+                                type="text"
+                                class="form-control"
+                                [(ngModel)]="captcha"
+                                name="captcha"
+                                placeholder="Saisir texte de verification"
+                              />
+                            </div>
+
+                            <div class="col-md-2">
+                              <a
+                                href="javascript:void(0)"
+                                title="changer captcha"
+                                (click)="refreshCaptcha()"
+                              >
+                                <img src="content/images/refresh.png" alt="rafraîchir" />
+                              </a>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <br />
+                      <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="f.invalid"
+                        translate="reset.request.form.button"
+                      >
+                        Envoyer Message
+                      </button>
+
+                    </form>
+                  }
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,103 @@
+<!-- ══════════════════════════════════════════════════════════════════════
+     login-card-dialog.component.html
+     Migré depuis login.card.html (AngularJS + $uibModal)
+
+     CORRECTIONS :
+      - Tous les textes français hardcodés remplacés par des clés i18n
+        (namespace : login.card.*).
+      - Le titre h4 utilisait du texte statique "Authentification par Carte".
+      - Les boutons et messages d'erreur idem.
+      - aria-label sur btn-close traduit via [attr.aria-label].
+
+     Clés à ajouter dans assets/i18n/fr/login.json :
+       "card": {
+         "title":        "Authentification par Carte",
+         "instructions": "Insérez votre carte et cliquez sur <strong>Connexion</strong> pour vous authentifier.",
+         "sign":         "Connexion",
+         "signing":      "Connexion en cours…",
+         "cancel":       "Annuler",
+         "error":        "Échec d'authentification !",
+         "close":        "Fermer"
+       }
+     ══════════════════════════════════════════════════════════════════════ -->
+
+<!-- Overlay : clic en dehors = fermeture -->
+<div
+  class="card-overlay"
+  (click)="onCancel()"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cardDialogTitle"
+>
+  <div class="card-dialog" (click)="$event.stopPropagation()">
+
+    <!-- En-tête -->
+    <div class="card-header">
+      <h4 id="cardDialogTitle" class="card-title">
+        <i class="fa fa-id-card"></i>
+        <span translate="login.card.title"></span>
+      </h4>
+      <button
+        type="button"
+        class="btn-close-dialog"
+        (click)="onCancel()"
+        [attr.aria-label]="'login.card.close' | translate"
+      >
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Corps -->
+    <div class="card-body">
+
+      <!-- Message d'erreur -->
+      @if (authenticationError()) {
+        <div class="alert alert-danger" role="alert">
+          <i class="fa fa-exclamation-triangle"></i>
+          <strong> <span translate="login.card.error"></span> </strong><br />
+          {{ errorMessage() }}
+        </div>
+      }
+
+      <!-- Instructions -->
+      <p class="card-instructions">
+        <i class="fa fa-info-circle"></i>
+        <!--
+          Le texte contient du HTML (<strong>) : utiliser [innerHTML] + pipe translate.
+          Alternative simple si pas de HTML : <span translate="login.card.instructions">
+        -->
+        <span [innerHTML]="'login.card.instructions' | translate"></span>
+      </p>
+
+      <div class="card-actions">
+
+        <!-- Bouton Connexion par carte -->
+        <button
+          type="button"
+          class="btn btn-card-sign"
+          [class.loading]="isLoading()"
+          [disabled]="isLoading()"
+          (click)="signByCard()"
+        >
+          @if (isLoading()) {
+            <i class="fa fa-spinner fa-spin"></i>
+            <span translate="login.card.signing"></span>
+          } @else {
+            <i class="fa fa-id-card"></i>
+            <span translate="login.card.sign"></span>
+          }
+        </button>
+
+        <!-- Bouton Annuler -->
+        <button
+          type="button"
+          class="btn btn-card-cancel"
+          [disabled]="isLoading()"
+          (click)="onCancel()"
+          translate="login.card.cancel"
+        ></button>
+
+      </div>
+    </div><!-- /.card-body -->
+  </div><!-- /.card-dialog -->
+</div><!-- /.card-overlay -->

@@ -1,0 +1,26 @@
+{
+    "portailElFatooraApp": {
+        "acknowlegment" : {
+            "home": {
+                "title": "Acknowlegments",
+                "createLabel": "Créer un nouveau Acknowlegment",
+                "createOrEditLabel": "Créer ou éditer un Acknowlegment",
+                "search": "Recherche pour Acknowlegment"
+            },
+            "created": "Un nouveau Acknowlegment a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Acknowlegment avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Acknowlegment avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Acknowlegment {{ id }} ?"
+            },
+            "detail": {
+                "title": "Acknowlegment"
+            },
+            "dateAck": "Date Ack",
+            "statusAck": "Status Ack",
+            "account": "Account",
+            "eDoc": "E Doc",
+            "error": "Error"
+        }
+    }
+}

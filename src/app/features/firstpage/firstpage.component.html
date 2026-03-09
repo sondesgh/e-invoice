@@ -1,0 +1,430 @@
+<!-- ══════════════════════════════════════════════════════════════════════════
+     Affichage conditionnel : non-authentifié vs authentifié
+     Miroir de ng-switch on="vm.isAuthenticated()"
+     ══════════════════════════════════════════════════════════════════════════ -->
+
+<!-- ─── NON AUTHENTIFIÉ ──────────────────────────────────────────────────── -->
+@if (!isAuthenticated()) {
+
+  <!-- Hero -->
+  <section id="slider" class="fullheight"
+    style="background: url('content/images/img.jpg') repeat scroll 0% 0%; height: 700px;">
+    <div class="overlay dark-4">
+      <div class="display-table">
+        <div class="display-table-cell vertical-align-middle">
+          <div class="container text-center">
+            <h1 class="m-0 fs-50 fw-400 wow fadeInUp" data-wow-delay="0.4s"
+                translate="firstpage.subtitle"></h1>
+            <p class="lead fs-30 wow fadeInUp" data-wow-delay="0.7s"
+               translate="firstpage.subtitle2"></p>
+            <div class="mt-30">
+              <a [routerLink]="['/login']" class="btn btn-3d btn-lg btn-teal">
+                <i class="glyphicon glyphicon-th-large"></i> Se Connecter
+              </a>
+              <span class="fs-17 hidden-xs-down btn btn-lg">&nbsp; Ou &nbsp;</span>
+              <a [routerLink]="['/register']" class="btn btn-3d btn-lg btn-red">
+                <i class="glyphicon glyphicon-user"></i> Créer un compte
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bouton contact -->
+  <a href="#contact" class="btn btn-xlg btn-teal fs-20 fullwidth m-0 rad-0 p-40">
+    <span class="fs-30">Pour plus d'informations: <strong>Nous contacter</strong></span>
+  </a>
+
+  <!-- Section Services -->
+  <section id="service" class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <header class="headerSection header-left wow bounceInDown animated" data-wow-delay="0.4s">
+            <h2 class="section-title" translate="firstpage.service.title"></h2>
+          </header>
+        </div>
+      </div>
+      <div class="serviceBoxContainer">
+        @for (i of [1,2,3,4,5,6]; track i) {
+          <div class="col-md-4">
+            <div class="serviceBox animated fadeInUp">
+              <i class="fa fa-envelope-square animated rotateIn"></i>
+              <div style="height:150px">
+                <h5 translate="firstpage.service.service{{ i }}"></h5>
+                <p  translate="firstpage.service.servdesc{{ i }}"></p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <br />
+
+  <!-- Bannière recherche -->
+  <a href="#searchByRef" class="btn btn-xlg btn-teal fs-20 fullwidth m-0 rad-0 p-40">
+    <span class="section-title" translate="firstpage.service.service22"></span>
+  </a>
+
+  <!-- Section Recherche facture -->
+  <section id="searchByRef" style="background: url('content/images/search.png'); height:260px;"
+           class="parallax">
+    <div class="overlay dark-6">
+      <div class="display-table">
+        <div class="display-table-cell vertical-align-middle">
+
+          @if (searchError()) {
+            <div class="row">
+              <div class="col-md-3"></div>
+              <div class="col-md-6">
+                <div class="alert alert-danger"><strong>{{ searchMessage() }}</strong></div>
+              </div>
+            </div>
+          }
+
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="search.matFisc"
+                       placeholder="Matricule fiscal" />
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="search.generatedRef"
+                       placeholder="Reference unique" />
+              </div>
+            </div>
+            <!-- reCAPTCHA : intégrer @types/grecaptcha + composant tiers si besoin -->
+            <div class="col-md-3">
+              <p class="text-muted small">[reCAPTCHA widget à intégrer]</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+              <button class="btn btn-lg btn-teal" type="button" (click)="doSearch()">
+                <i class="glyphicon glyphicon-search"></i> Recherche
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <app-alert />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Documentation publique -->
+  <section id="docs" class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="section-title" translate="firstpage.docs.title"></h2>
+        </div>
+      </div>
+      <!-- Le contenu de la section docs sera rendu ici depuis les clés i18n -->
+    </div>
+  </section>
+
+  <!-- Section Contact (publique, standalone) -->
+  <section id="contact" class="contact text-center bg-gray">
+    <ng-container *ngTemplateOutlet="contactSection" />
+  </section>
+
+} @else {
+
+  <!-- ─── AUTHENTIFIÉ ────────────────────────────────────────────────────── -->
+  <div class="wrapper1">
+    <section class="bg-transparent" id="home">
+      <div class="row">
+        <div class="col-md-12">
+          <br /><br />
+          <div class="row">
+            <div class="col-sm-12 form-box">
+              <div class="form-bottom">
+
+                <div class="title-block text-center">
+                  <h4 translate="firstpage.home.title"
+                      [translateParams]="{ username: account()?.login }">
+                    Welcome, in ElFatoora Portal!
+                  </h4>
+                  <div class="line-block">
+                    <span class="bullet"><i class="fa fa-smile-o"></i></span>
+                  </div>
+                </div>
+                <br />
+
+                <h5 class="page-header">EL FATOORA DOCUMENTATION:</h5>
+                <br />
+
+                <div class="row">
+                  <!-- Colonne gauche -->
+                  <div class="col-md-6">
+                    <ul class="list style2">
+                      <li>
+                        <a href="javascript:void(0)"
+                           (click)="download('xsd','facture_INVOIC_V1.8.3.xsd')">
+                          <img alt="" src="content/images/xsd.gif" />
+                          <span translate="firstpage.home.downloads.xsd.title"></span>
+                        </a>
+                        <span translate="firstpage.home.downloads.xsd.detail"></span>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)"
+                           (click)="download('annexe','ANNEXE-A-RéférentielsTEIF-V1.5.pdf')">
+                          <img alt="" src="content/images/pdf_20.gif" />
+                          <span translate="firstpage.home.downloads.annexe.title"></span>
+                        </a>
+                        <span translate="firstpage.home.downloads.annexe.detail"></span>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)"
+                           (click)="download('guideimpl','Guide-Implementation-TEIF_V1.5.pdf')">
+                          <img alt="" src="content/images/pdf_20.gif" />
+                          <span translate="firstpage.home.downloads.guideimpl.title"></span>
+                        </a>
+                        <span translate="firstpage.home.downloads.guideimpl.detail"></span>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)"
+                           (click)="download('specdsig','Spec-signature4.pdf')">
+                          <img alt="" src="content/images/pdf_20.gif" />
+                          <span translate="firstpage.home.downloads.specdsig.title"></span>
+                        </a>
+                        <span translate="firstpage.home.downloads.specdsig.detail"></span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- Colonne droite -->
+                  <div class="col-md-6">
+                    <ul class="list style2">
+                      <li>
+                        <a href="javascript:void(0)"
+                           (click)="download('specws','Spec-webservicesv5.pdf')">
+                          <img alt="" src="content/images/pdf_20.gif" />
+                          <span translate="firstpage.home.downloads.specws.title"></span>
+                        </a>
+                        <span translate="firstpage.home.downloads.specws.detail"></span>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)"
+                           (click)="download('specftp','Spec-ftp.pdf')">
+                          <img alt="" src="content/images/pdf_20.gif" />
+                          <span translate="firstpage.home.downloads.specftp.title"></span>
+                        </a>
+                        <span translate="firstpage.home.downloads.specftp.detail"></span>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)"
+                           (click)="download('expteifjpg','facture_desc_XSD1.8.jpg')">
+                          <img alt="" src="content/images/img.gif" />
+                          <span translate="firstpage.home.downloads.expinvoice.title"></span>
+                        </a>
+                        <span translate="firstpage.home.downloads.expinvoice.detail"></span>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)"
+                           (click)="download('expteifpdf','Exemple_facture.pdf')">
+                          <img alt="" src="content/images/pdf_20.gif" />
+                          <span translate="firstpage.home.downloads.expinvoice1.title"></span>
+                        </a>
+                        <span translate="firstpage.home.downloads.expinvoice1.detail"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+}
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     Template réutilisable : formulaire de contact
+     (affiché dans la firstpage publique ET dans /contact)
+     ══════════════════════════════════════════════════════════════════════════ -->
+<ng-template #contactSection>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 text-left">
+        <ul>
+          <li><i class="fa fa-home fa-2x"></i> <strong>Tunisie TradeNet</strong>
+            Rue du Lac Malaren, Lotissement El Khalij Les Berges du Lac, 1053-Tunis</li>
+          <hr /><br />
+          <li><i class="fa fa-phone fa-2x"></i> (216) 71 861 712</li>
+          <hr /><br />
+          <li><i class="fa fa-fax fa-2x"></i> (216) 71 861 141</li>
+          <hr /><br />
+          <li><i class="fa fa-envelope fa-2x"></i>
+            <a href="mailto:elfatoora@tradenet.com.tn">elfatoora&#64;tradenet.com.tn</a>
+          </li>
+          <hr /><br />
+          <li>
+            <ul class="company-social">
+              <li class="social-facebook">
+                <a href="https://www.facebook.com/ElFatoora/" target="_blank">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </li>
+              <li class="social-google">
+                <a href="http://elfatoora.tn" target="_blank">
+                  <i class="fa fa-google-plus"></i>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Formulaire de contact -->
+      <div class="col-sm-6">
+        <form id="contact-form" novalidate #cf="ngForm" (ngSubmit)="contactUs()">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="contact.name"
+                       name="name"
+                       placeholder="{{ 'firstpage.contact.name' | translate }}" required />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="contact.socity"
+                       name="socity"
+                       placeholder="{{ 'firstpage.contact.socity' | translate }}" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="contact.coddou"
+                       name="coddou"
+                       placeholder="{{ 'firstpage.contact.coddou' | translate }}" />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
+                  <input type="text" class="form-control" [(ngModel)]="contact.tel"
+                         name="tel" placeholder="Tel" required />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                  <input type="email" class="form-control" [(ngModel)]="contact.email"
+                         name="email"
+                         placeholder="{{ 'firstpage.contact.email' | translate }}" required />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="contact.nbrInvoice"
+                       name="nbrInvoice"
+                       placeholder="{{ 'firstpage.contact.nbrinvoice' | translate }}" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <select class="form-control" name="subject" [(ngModel)]="contact.subject" required>
+                  <option value="" translate="firstpage.contact.subject"></option>
+                  <option value="info"          translate="firstpage.contact.service"></option>
+                  <option value="doc"           translate="firstpage.contact.service1"></option>
+                  <option value="test"          translate="firstpage.contact.service2"></option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="3" required
+                          [(ngModel)]="contact.message"
+                          placeholder="{{ 'firstpage.contact.message' | translate }}">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <br />
+
+          <!-- Captcha contact -->
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-captcha">
+                <div class="row">
+                  <div class="form-group">
+                    <div class="col-md-5">
+                      <img [src]="captchaContactUrl" id="captchaContact_id"
+                           alt="captcha" style="cursor:pointer;"
+                           (click)="refreshContactCaptcha()" />
+                    </div>
+                    <div class="col-md-5">
+                      <input type="text" class="form-control"
+                             [(ngModel)]="captchaContact"
+                             name="captchaContact"
+                             placeholder="Saisir texte de verification" />
+                    </div>
+                    <div class="col-md-2">
+                      <a href="javascript:void(0)" title="changer captcha"
+                         (click)="refreshContactCaptcha()">
+                        <img src="content/images/refresh.png" alt="rafraîchir" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+
+          <div class="row">
+            <div class="col-sm-4 pull-left">
+              <button type="submit" class="btn btn-3d btn-lg btn-leaf"
+                      [disabled]="cf.invalid"
+                      translate="firstpage.contact.send"></button>
+							   
+					   
+            </div>
+          </div>
+
+          <br /><br />
+
+          <div class="col-sm-12">
+            <app-alert />
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

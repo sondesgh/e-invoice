@@ -1,0 +1,55 @@
+﻿{
+  "name": "portail-fatoora-frontend",
+  "version": "0.0.1",
+  "description": "Portail El-Fatoora — Angular 19 (migré depuis AngularJS 1.x)",
+  "private": true,
+  "scripts": {
+    "start": "ng serve --proxy-config proxy.conf.json --port 4200 --open",
+    "start:prod": "ng serve --configuration production",
+    "build": "ng build --configuration production",
+    "build:dev": "ng build --configuration development",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "dependencies": {
+    "@angular/animations": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/platform-browser-dynamic": "^19.0.0",
+    "@angular/router": "^19.0.0",
+    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/http-loader": "^8.0.0",
+    "@types/money": "^0.2.3",
+    "big-integer": "^1.6.52",
+    "bootstrap": "^5.3.3",
+    "fast-xml-parser": "^4.4.0",
+    "font-awesome": "^4.7.0",
+    "money": "^0.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.0.0",
+    "@angular/cli": "^19.0.0",
+    "@angular/compiler-cli": "^19.0.0",
+    "@compodoc/compodoc": "^1.2.1",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "nx": "^22.5.4",
+    "ts-morph": "^27.0.2",
+    "typescript": "~5.5.0"
+  },
+  "overrides": {
+    "typescript": "5.5.4"
+  }
+}

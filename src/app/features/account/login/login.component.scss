@@ -1,0 +1,281 @@
+@use 'sass:color';
+
+// ── Tokens (cohérents avec navbar + footer) ───────────────────────────────────
+$bg:          #0d1117;
+$card-bg:     #161b22;
+$accent:      #0f6b8a;
+$accent-glow: rgba(15, 107, 138, 0.4);
+$text:        #c9d1d9;
+$text-muted:  #8b949e;
+$border:      rgba(255, 255, 255, 0.08);
+$danger:      #f85149;
+$radius:      10px;
+$transition:  0.2s ease;
+
+// ── Page ──────────────────────────────────────────────────────────────────────
+.login-page {
+  min-height:      100vh;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  background:      $bg;
+  // Légère texture de profondeur
+  background-image: radial-gradient(ellipse at 30% 20%, rgba(15,107,138,.12) 0%, transparent 60%),
+                    radial-gradient(ellipse at 70% 80%, rgba(26,26,46,.6) 0%, transparent 60%);
+  padding: 24px 16px;
+}
+
+// ── Carte ─────────────────────────────────────────────────────────────────────
+.login-card {
+  width:         100%;
+  max-width:     420px;
+  background:    $card-bg;
+  border:        1px solid $border;
+  border-radius: $radius + 4px;
+  padding:       40px 36px 32px;
+  box-shadow:    0 8px 40px rgba(0,0,0,.5);
+
+  // Entrée animée
+  animation: cardIn .35s ease both;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+// ── En-tête ───────────────────────────────────────────────────────────────────
+.login-header {
+  text-align:    center;
+  margin-bottom: 28px;
+}
+
+.login-logo {
+  height:        48px;
+  margin-bottom: 16px;
+}
+
+.login-title {
+  font-family:   'NeoSansStd', Arial, sans-serif;
+  font-size:     1.4rem;
+  font-weight:   500;
+  color:         #fff;
+  margin:        0;
+  letter-spacing: 0.3px;
+}
+
+// ── Alerte ────────────────────────────────────────────────────────────────────
+.alert-danger {
+  background:    rgba(248, 81, 73, .1);
+  border:        1px solid rgba(248, 81, 73, .3);
+  color:         $danger;
+  border-radius: $radius;
+  padding:       10px 14px;
+  font-size:     .85rem;
+  margin-bottom: 18px;
+
+  .fa { margin-right: 6px; }
+}
+
+// ── Formulaire ────────────────────────────────────────────────────────────────
+.form-group {
+  margin-bottom: 16px;
+
+  label {
+    display:       block;
+    font-size:     .8rem;
+    font-weight:   500;
+    color:         $text-muted;
+    margin-bottom: 6px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+  }
+}
+
+// Champ avec icône
+.input-icon {
+  position: relative;
+
+  .fa {
+    position:   absolute;
+    left:       12px;
+    top:        50%;
+    transform:  translateY(-50%);
+    color:      $text-muted;
+    font-size:  .9rem;
+    pointer-events: none;
+  }
+
+  .form-control {
+    padding-left: 36px;
+  }
+}
+
+.form-control {
+  width:            100%;
+  background:       rgba(255,255,255,.04);
+  border:           1px solid $border;
+  border-radius:    $radius;
+  color:            $text;
+  font-size:        .9rem;
+  padding:          10px 12px;
+  transition:       border-color $transition, box-shadow $transition;
+  font-family:      inherit;
+
+  &::placeholder { color: $text-muted; }
+
+  &:focus {
+    outline:      none;
+    border-color: $accent;
+    box-shadow:   0 0 0 3px rgba(15,107,138,.2);
+    background:   rgba(255,255,255,.06);
+  }
+}
+
+// ── Captcha ───────────────────────────────────────────────────────────────────
+.captcha-group {
+  .captcha-row {
+    display:     flex;
+    align-items: center;
+    gap:         10px;
+    flex-wrap:   wrap;
+  }
+
+  .captcha-img {
+    height:        48px;
+    border-radius: 6px;
+    border:        1px solid $border;
+    cursor:        pointer;
+    transition:    opacity $transition;
+    flex-shrink:   0;
+
+    &:hover { opacity: .85; }
+  }
+
+  .btn-refresh {
+    background:    rgba(255,255,255,.05);
+    border:        1px solid $border;
+    border-radius: 6px;
+    color:         $text-muted;
+    padding:       0 10px;
+    height:        36px;
+    cursor:        pointer;
+    transition:    background $transition, color $transition;
+    flex-shrink:   0;
+
+    &:hover { background: rgba(15,107,138,.2); color: $accent; }
+  }
+
+  .captcha-input {
+    flex:      1;
+    min-width: 100px;
+    max-width: 160px;
+  }
+
+  small {
+    color:     $text-muted;
+    font-size: .75rem;
+    margin-top: 4px;
+    display:   block;
+  }
+}
+
+// ── reCAPTCHA Google ──────────────────────────────────────────────────────────
+.g-recaptcha-container {
+  // le widget a une largeur fixe de 304px — centré
+  display:         flex;
+  justify-content: center;
+  margin-top:      4px;
+}
+
+// ── Se souvenir ───────────────────────────────────────────────────────────────
+.remember-me {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+  margin:      8px 0 20px;
+
+  .form-check-input {
+    width:         16px;
+    height:        16px;
+    accent-color:  $accent;
+    cursor:        pointer;
+    flex-shrink:   0;
+  }
+
+  .form-check-label {
+    font-size: .85rem;
+    color:     $text-muted;
+    cursor:    pointer;
+    margin:    0;
+  }
+}
+
+// ── Bouton connexion ──────────────────────────────────────────────────────────
+.btn-login {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             8px;
+  width:           100%;
+  padding:         11px;
+  background:      $accent;
+  color:           #fff;
+  border:          none;
+  border-radius:   $radius;
+  font-size:       .95rem;
+  font-family:     inherit;
+  font-weight:     500;
+  letter-spacing:  .4px;
+  cursor:          pointer;
+  transition:      background $transition, transform $transition, box-shadow $transition;
+
+  &:hover:not(:disabled) {
+    background:  color.adjust($accent, $lightness: 8%);
+    transform:   translateY(-1px);
+    box-shadow:  0 4px 16px $accent-glow;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled,
+  &.loading {
+    opacity: .7;
+    cursor:  not-allowed;
+    transform: none;
+  }
+
+  .fa-spinner { animation: spin .7s linear infinite; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+// ── Liens ─────────────────────────────────────────────────────────────────────
+.login-links {
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
+  gap:             10px;
+  margin-top:      20px;
+  font-size:       .82rem;
+
+  a {
+    color:           $accent;
+    text-decoration: none;
+    transition:      color $transition;
+
+    &:hover { color: color.adjust($accent, $lightness: 15%); text-decoration: underline; }
+  }
+
+  .separator { color: $border; }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 480px) {
+  .login-card { padding: 28px 20px 24px; }
+}

@@ -1,0 +1,222 @@
+<div class="wrapper1">
+  <section class="bg-transparent">
+    <div class="row">
+      <div class="col-md-12">
+        <br><br>
+        <div class="row">
+          <div class="col-sm-12 form-box">
+            <div class="form-bottom">
+
+              <!-- Breadcrumb -->
+              <div class="row">
+                <div class="col-md-3">
+                  <ol class="breadcrumb">
+                    <li><a routerLink="/home">
+                      <span class="glyphicon glyphicon-home"></span>
+                      <span class="hidden-sm" translate="global.menu.home">Home</span>
+                    </a></li>
+                    <li class="active">
+                      <span translate="global.menu.invoices.consult">Consult Invoice</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <app-alert></app-alert>
+
+              <form #myForm="ngForm" class="form-horizontal text-left">
+                <div class="panel panel-default text-left">
+                  <div class="panel-body">
+                    <br>
+                    <div class="row">
+                      <div class="form-actions pull-right">
+                        <button class="btn btn-info btn-sm" type="button" (click)="fetchEDocs()">Rechercher</button>
+                        <button class="btn btn-warning btn-sm" type="button" (click)="reset()">Initialiser</button>
+                      </div>
+                    </div>
+
+                    <!-- Référence TTN + Date Insertion -->
+                    <div class="row">
+                      <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Référence TTN Facture</label>
+                        <div class="col-md-2">
+                          <input type="text" [(ngModel)]="criteria.generatedRef" name="generatedRef" class="form-control input-sm">
+                        </div>
+                        <label class="col-md-1 control-lable">Date Insertion</label>
+                        <div class="col-md-2">
+                          <input type="date" [(ngModel)]="dateProcess" name="dateProcess" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Num Facture + Date Facture De/A -->
+                    <div class="row">
+                      <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Num Facture</label>
+                        <div class="col-md-2">
+                          <input type="text" [(ngModel)]="criteria.documentNumber" name="numFact" class="form-control input-sm">
+                        </div>
+                        <label class="col-md-1 control-lable">Date Facture</label>
+                        <div class="col-md-2">
+                          <div class="input-group">
+                            <span class="input-group-addon">De</span>
+                            <input type="date" [(ngModel)]="dateDocument" name="dateDocument" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="input-group">
+                            <span class="input-group-addon">A</span>
+                            <input type="date" [(ngModel)]="dateDocumentTo" name="dateDocumentTo" class="form-control">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Etat Facture + Montant TTC -->
+                    <div class="row">
+                      <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Etat Facture</label>
+                        <div class="col-md-2">
+                          <label class="control-lable">
+                            <input type="radio" value="E" [(ngModel)]="criteria.processStatus" name="processStatus">
+                            Trait&eacute;e(s)
+                          </label>
+                          <label class="control-lable">
+                            <input type="radio" value="X" [(ngModel)]="criteria.processStatus" name="processStatus">
+                            Eronn&eacute;e(s)
+                          </label>
+                        </div>
+                        <label class="col-md-1 control-lable">Montant TTC</label>
+                        <div class="col-md-2">
+                          <div class="input-group">
+                            <span class="input-group-addon">De</span>
+                            <input type="text" [(ngModel)]="criteria.amountFrom" name="montant" class="form-control input-sm">
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="input-group">
+                            <span class="input-group-addon">A</span>
+                            <input type="text" [(ngModel)]="criteria.amountTo" name="montantTo" class="form-control input-sm">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Type utilisateur -->
+                    <div class="row">
+                      <div class="form-group col-md-12">
+                        <label class="col-md-2 control-lable">Utilisateur</label>
+                        <div class="col-md-2">
+                          <label class="control-lable">
+                            <input type="radio" value="E" [(ngModel)]="criteria.typeUser" name="typeUser"> Emetteur
+                          </label>
+                          <label class="control-lable">
+                            <input type="radio" value="R" [(ngModel)]="criteria.typeUser" name="typeUser"> Receveur
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+
+              <br><br><br>
+
+              <!-- ── Résultats ── -->
+              <div class="panel panel-default text-left">
+                <div class="panel-heading">Liste des Factures</div>
+                <div class="panel-body">
+                  <br>
+
+                  <div *ngIf="isLoading()" class="text-center">
+                    <i class="fa fa-spinner fa-spin fa-2x"></i>
+                  </div>
+
+                  <div *ngIf="!isLoading() && eDocs.length === 0" class="text-center text-muted">
+                    <em>Aucune facture trouvée.</em>
+                  </div>
+
+                  <table *ngIf="eDocs.length > 0" class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>Référence</th>
+                        <th>Numéro</th>
+                        <th>Date Facture</th>
+                        <th>Date Insertion</th>
+                        <th>Code Receveur</th>
+                        <th>Montant TTC</th>
+                        <th>Montant Taxe</th>
+                        <th>Etat</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let u of pagedEDocs; let i = index">
+                        <tr>
+                          <td>{{ u.generatedRef }}</td>
+                          <td>{{ u.documentNumber }}</td>
+                          <td>{{ u.dateDocument }}</td>
+                          <td>{{ u.dateProcess }}</td>
+                          <td>{{ u.receiverCode }}</td>
+                          <td>{{ u.amountTtc }}</td>
+                          <td>{{ u.amountTax }}</td>
+                          <td>
+                            <span *ngIf="u.processStatus === 'E'">Trait&eacute;e</span>
+                            <span *ngIf="u.processStatus === 'X'">Eronn&eacute;e</span>
+                            <span *ngIf="u.processStatus === 'R'">En cours de validation</span>
+                          </td>
+                          <td>
+                            <a href="" *ngIf="u.processStatus === 'E'"
+                              (click)="$event.preventDefault(); showDetailInvoice(i, u.id)">
+                              <i *ngIf="ligneNumber !== i" class="fa fa-plus-square fa-2x"></i>
+                              <i *ngIf="isLoadingDetail() && ligneNumber === i" class="fa fa-spinner fa-spin"></i>
+                              <i *ngIf="ligneNumber === i && !isLoadingDetail()" class="fa fa-minus-square fa-2x"></i>
+                            </a>
+                            <a href="" *ngIf="u.processStatus === 'X'"
+                              (click)="$event.preventDefault(); showDetailInvoiceError(i, u.id)">
+                              <i *ngIf="ligneNumber !== i" class="fa fa-plus-square fa-2x"></i>
+                              <i *ngIf="isLoadingDetail() && ligneNumber === i" class="fa fa-spinner fa-spin"></i>
+                              <i *ngIf="ligneNumber === i && !isLoadingDetail()" class="fa fa-minus-square fa-2x"></i>
+                            </a>
+                            <a href="" *ngIf="u.processStatus === 'E'"
+                              (click)="$event.preventDefault(); showInvoicePdf(u.id)">PDF</a>
+                          </td>
+                        </tr>
+                        <tr *ngIf="ligneNumber === i && !isLoadingDetail()">
+                          <td colspan="9" id="detailFact">
+                            <app-invoice-detail *ngIf="u.processStatus === 'E'" [teif]="teif"></app-invoice-detail>
+                            <app-invoice-detail-errors *ngIf="u.processStatus === 'X'" [errors]="errors"></app-invoice-detail-errors>
+                          </td>
+                        </tr>
+                      </ng-container>
+                    </tbody>
+                  </table>
+
+                  <!-- Pagination -->
+                  <div *ngIf="totalPages > 1" class="text-center">
+                    <nav>
+                      <ul class="pagination pagination-sm">
+                        <li [class.disabled]="page <= 1">
+                          <a href="" (click)="$event.preventDefault(); page = page > 1 ? page - 1 : 1">«</a>
+                        </li>
+                        <li *ngFor="let p of [].constructor(totalPages); let pi = index" [class.active]="pi + 1 === page">
+                          <a href="" (click)="$event.preventDefault(); page = pi + 1">{{ pi + 1 }}</a>
+                        </li>
+                        <li [class.disabled]="page >= totalPages">
+                          <a href="" (click)="$event.preventDefault(); page = page < totalPages ? page + 1 : totalPages">»</a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

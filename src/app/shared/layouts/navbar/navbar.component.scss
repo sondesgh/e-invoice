@@ -1,0 +1,377 @@
+﻿// ══════════════════════════════════════════════════════════════════════════════
+// navbar.component.scss  –  ElFatoora · Angular 19 standalone component
+// ══════════════════════════════════════════════════════════════════════════════
+//
+// Fichiers legacy chargés via angular.json AVANT ce SCSS :
+//   essentials.css  – reset : a { transition:all .3s }, outline:none, etc.
+//   main.css        – @font-face NeoSansStd (.ttf), html/body height:100%
+//   header.css      – #topMain, #topNav, #header  (Bootstrap 4 IDs)
+//   navbar.css      – .navbar-custom, .navbar-brand, .top-nav-collapse
+//
+// Notre composant utilise .site-header — AUCUNE collision avec ces IDs/classes.
+// Les seuls overrides nécessaires sont signalés par le commentaire « ↳ legacy ».
+//
+
+// ── Import Sass moderne (remplace fonctions dépréciées) ───────────────────────
+@use 'sass:color';
+
+// ── Variables ElFatoora ────────────────────────────────────────────────────────
+$nav-bg:          #1a1a2e;
+$nav-bg-scrolled: rgba(18, 18, 38, 0.97);
+$nav-accent:      #0f6b8a;
+$nav-accent-glow: rgba(15, 107, 138, 0.35);
+$nav-text:        #c8d0d9;
+$nav-text-active: #fff;
+$nav-border:      rgba(255, 255, 255, 0.07);
+$nav-dropdown-bg: #12122a;
+$nav-height:      68px;
+$transition:      0.25s ease;
+
+// ── Scope du composant ────────────────────────────────────────────────────────
+:host {
+  display: block;
+
+  // ↳ legacy essentials.css : button { background:none; border:0; cursor:pointer }
+  // déjà présent dans essentials — on s'assure juste du padding:0
+  button { padding: 0; }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// HEADER
+// ══════════════════════════════════════════════════════════════════════════════
+// ↳ legacy header.css : #header { height:96px } — ne s'applique pas à .site-header
+.site-header {
+  position:      fixed;
+  top:           0;
+  left:          0;
+  right:         0;
+  z-index:       1000;
+  height:        $nav-height;
+  background:    transparent;
+  border-bottom: 1px solid transparent;
+  // ↳ legacy essentials.css : a { transition:all .3s } — on override les éléments enfants
+  transition:    background $transition, border-color $transition, box-shadow $transition;
+  font-family:   'NeoSansStd', Arial, sans-serif;
+
+  &.scrolled {
+    background:      $nav-bg-scrolled;
+    border-color:    $nav-border;
+    box-shadow:      0 4px 24px rgba(0,0,0,.4);
+    backdrop-filter: blur(10px);
+  }
+
+  &.nav-open { background: $nav-bg; }
+}
+
+// ── Conteneur flex ────────────────────────────────────────────────────────────
+// ↳ legacy header.css : #topNav .navbar-collapse { float:right } — neutralisé en flexbox
+.header-inner {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  height:          100%;
+}
+
+// ── Logo ──────────────────────────────────────────────────────────────────────
+// ↳ legacy header.css : #topNav a.logo { height:96px; line-height:96px }
+//   → nos règles sont plus spécifiques dans ce scope
+.logo {
+  display:     flex;
+  align-items: center;
+  flex-shrink: 0;
+  height:      auto;
+  line-height: normal;
+
+  img {
+    height:     40px;
+    width:      auto;
+    max-height: 40px; // annule le max-height:60px de header.css @media 992px
+    transition: opacity $transition;
+    &:hover { opacity: .85; }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// BURGER (mobile)
+// ══════════════════════════════════════════════════════════════════════════════
+.burger {
+  display:        none;
+  flex-direction: column;
+  gap:            5px;
+  padding:        8px;
+  z-index:        1001;
+
+  .burger-line {
+    display:          block;
+    width:            24px;
+    height:           2px;
+    background-color: $nav-text;
+    border-radius:    2px;
+    transition:       transform $transition, opacity $transition;
+  }
+
+  // Croix quand le menu est ouvert
+  &.is-open {
+    .burger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .burger-line:nth-child(2) { opacity: 0; }
+    .burger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// NAV PRINCIPALE
+// ══════════════════════════════════════════════════════════════════════════════
+.nav-main {
+  display:     flex;
+  align-items: center;
+}
+
+.nav-list {
+  display:     flex;
+  align-items: center;
+  gap:         4px;
+  list-style:  none;
+  margin:      0;
+  padding:     0;
+}
+
+// ── Lien nav ──────────────────────────────────────────────────────────────────
+// ↳ legacy navbar.css : .navbar-custom ul.nav li a { font-size:12px; color:#fff }
+//   → pas de collision (notre sélecteur est .nav-link, pas dans .navbar-custom)
+// ↳ legacy header.css : #topMain.nav-pills>li>a { height:96px; color:#1F262D }
+//   → pas de collision (on n'utilise pas #topMain)
+.nav-link {
+  display:         flex;
+  align-items:     center;
+  gap:             7px;
+  padding:         8px 14px;
+  color:           $nav-text;
+  font-size:       0.85rem;
+  letter-spacing:  0.3px;
+  border-radius:   6px;
+  text-decoration: none;
+  transition:      color $transition, background $transition;
+  white-space:     nowrap;
+
+  .fa { font-size: .9rem; color: $nav-accent; }
+
+  &:hover,
+  &.active {
+    color:      $nav-text-active;
+    background: rgba(255,255,255,.06);
+  }
+
+  &.active { color: $nav-accent; }
+}
+
+.nav-icon-link { padding: 8px 10px; }
+
+// ── Bouton Sign-in ────────────────────────────────────────────────────────────
+.btn-signin {
+  display:        flex;
+  align-items:    center;
+  gap:            8px;
+  padding:        8px 20px;
+  background:     $nav-accent;
+  color:          #fff;
+  font-size:      0.85rem;
+  font-family:    inherit;
+  border-radius:  6px;
+  letter-spacing: 0.5px;
+  transition:     background $transition, transform $transition, box-shadow $transition;
+
+  .fa { font-size: .9rem; }
+
+  &:hover {
+    background: color.adjust($nav-accent, $lightness: 8%);
+    transform:  translateY(-1px);
+    box-shadow: 0 4px 14px $nav-accent-glow;
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DROPDOWN
+// ══════════════════════════════════════════════════════════════════════════════
+.nav-dropdown {
+  position: relative;
+
+  .caret {
+    font-size:   0.65rem !important;
+    margin-left: 2px;
+    transition:  transform $transition;
+    &.rotated { transform: rotate(180deg); }
+  }
+
+  // ↳ legacy header.css : #topMain .dropdown-toggle::after { content:"\f107" }
+  //   → on supprime le pseudo-élément Bootstrap injecté par header.css si Bootstrap
+  //     était en jeu ; ici notre caret est inline donc on force display:none
+  > .nav-link.dropdown-toggle::after,
+  > .dropdown-toggle::after {
+    display: none !important;
+  }
+
+  &.active > .nav-link { color: $nav-accent; }
+}
+
+// ── Menu ──────────────────────────────────────────────────────────────────────
+// ↳ legacy navbar.css : .navbar-custom ul.nav ul.dropdown-menu { border-radius:0 }
+//   → pas de conflit (sélecteur différent)
+.dropdown-menu {
+  position:       absolute;
+  top:            calc(100% + 8px);
+  right:          0;
+  min-width:      210px;
+  background:     $nav-dropdown-bg;
+  border:         1px solid $nav-border;
+  border-radius:  8px;
+  padding:        6px;
+  list-style:     none;
+  margin:         0;
+  box-shadow:     0 12px 32px rgba(0,0,0,.45);
+  opacity:        0;
+  transform:      translateY(6px);
+  pointer-events: none;
+  transition:     opacity $transition, transform $transition;
+
+  &.show {
+    opacity:        1;
+    transform:      translateY(0);
+    pointer-events: auto;
+  }
+}
+
+// ── Items ─────────────────────────────────────────────────────────────────────
+// ↳ legacy navbar.css : .navbar-custom ul.nav ul.dropdown-menu li a { padding:10px 20px }
+//   → nos items ont 9px 12px (sélecteur plus spécifique)
+.dropdown-item {
+  display:         flex;
+  align-items:     center;
+  gap:             10px;
+  width:           100%;
+  padding:         9px 12px;
+  color:           $nav-text;
+  font-size:       0.83rem;
+  font-family:     inherit;
+  text-decoration: none;
+  border-radius:   5px;
+  transition:      background $transition, color $transition;
+  text-align:      left;
+
+  .fa { width: 16px; color: $nav-accent; font-size: .82rem; }
+
+  &:hover,
+  &.active {
+    background: rgba(15,107,138,.18);
+    color:      $nav-text-active;
+  }
+
+  &.logout-item {
+    .fa { color: #c0392b; }
+    &:hover { background: rgba(192,57,43,.15); color: #e74c3c; }
+  }
+}
+
+.dropdown-divider {
+  height:     1px;
+  background: $nav-border;
+  margin:     6px 0;
+  list-style: none;
+}
+
+// ── Langue ────────────────────────────────────────────────────────────────────
+.lang-code {
+  font-size:      0.75rem;
+  font-weight:    600;
+  letter-spacing: 1px;
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// OVERLAY MOBILE
+// ══════════════════════════════════════════════════════════════════════════════
+.nav-overlay {
+  display:    none;
+  position:   fixed;
+  inset:      0;
+  background: rgba(0,0,0,.55);
+  z-index:    999;
+  opacity:    0;
+  transition: opacity $transition;
+
+  &.visible { opacity: 1; }
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// RESPONSIVE  (breakpoint lg = 991px, cohérent Bootstrap 4/5)
+// ══════════════════════════════════════════════════════════════════════════════
+// ↳ legacy header.css : @media (max-width:992px) { #header { height:60px !important } }
+//   → ne s'applique pas à .site-header ; on garde $nav-height (68px) sur mobile
+@media (max-width: 991px) {
+
+  .burger        { display: flex; }
+  .nav-overlay   { display: block; }
+
+  .nav-main {
+    position:        fixed;
+    top:             0;
+    right:           -320px;
+    width:           300px;
+    height:          100vh;
+    background:      $nav-bg;
+    border-left:     1px solid $nav-border;
+    flex-direction:  column;
+    align-items:     flex-start;
+    padding:         80px 16px 24px;
+    z-index:         1000;
+    overflow-y:      auto;
+    transition:      right $transition;
+    box-shadow:      -8px 0 32px rgba(0,0,0,.4);
+
+    &.open { right: 0; }
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items:    stretch;
+    width:          100%;
+    gap:            2px;
+  }
+
+  .nav-link { padding: 11px 14px; font-size: .9rem; }
+
+  .nav-dropdown {
+    width: 100%;
+
+    > .nav-link,
+    > .dropdown-toggle {
+      width:           100%;
+      justify-content: space-between;
+    }
+  }
+
+  .dropdown-menu {
+    position:       static;
+    box-shadow:     none;
+    border:         none;
+    background:     rgba(255,255,255,.03);
+    border-radius:  6px;
+    margin-top:     4px;
+    opacity:        0;
+    max-height:     0;
+    overflow:       hidden;
+    transform:      none !important;
+    transition:     opacity $transition, max-height 0.3s ease !important;
+    pointer-events: none;
+
+    &.show {
+      opacity:        1;
+      max-height:     500px;
+      pointer-events: auto;
+    }
+  }
+
+  .btn-signin {
+    width:           100%;
+    justify-content: center;
+    margin-top:      8px;
+  }
+}

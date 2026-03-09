@@ -1,0 +1,58 @@
+<footer id="footer">
+    <div class="container">
+      <div class="row">
+  
+        <!-- Adresse de contact -->
+        <div class="col-md-4">
+          <address>
+            <ul class="list-unstyled">
+              <li class="footer-sprite address">
+                Tunisie TradeNet<br>
+                Rue du Lac Malaren, Lotissement El Khalij<br>
+                Les Berges du Lac, 1053-Tunis
+              </li>
+              <li class="footer-sprite phone">
+                Tel: (216) 71 861 712<br>
+                Fax: (216) 71 861 141
+              </li>
+              <li class="footer-sprite email">
+                <a href="mailto:elfatoora@tradenet.com.tn">
+                  elfatoora&#64;tradenet.com.tn
+                </a>
+              </li>
+            </ul>
+          </address>
+        </div>
+  
+        <!-- Colonne centrale vide (espacement) -->
+        <div class="col-md-5"></div>
+  
+        <!-- Réseaux sociaux -->
+        <div class="col-md-3">
+          <br>
+          <h4 class="letter-spacing-1">RESTEZ EN CONTACT</h4>
+  
+          <div class="mt-20">
+            <a
+              *ngFor="let link of socialLinks"
+              [href]="link.href || null"
+              [class]="'social-icon social-icon-border ' + link.cssClass + ' float-left'"
+              data-toggle="tooltip"
+              data-placement="top"
+              [title]="link.title">
+              <i [class]="'fa ' + link.icon"></i>
+              <i [class]="'fa ' + link.icon"></i>
+            </a>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  
+    <!-- Bande copyright -->
+    <div class="copyright">
+      <div class="container">
+        Copyright {{ currentYear }} - Tunisie Tradenet
+      </div>
+    </div>
+  </footer>

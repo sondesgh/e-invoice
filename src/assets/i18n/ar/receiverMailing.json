@@ -1,0 +1,26 @@
+{
+    "receiverApp": {
+        "receiverMailing" : {
+            "home": {
+                "title": "Receiver Mailings",
+                "createLabel": "Create a new Receiver Mailing",
+                "createOrEditLabel": "Create or edit a Receiver Mailing",
+                "search": "Search for Receiver Mailing"
+            },
+            "created": "A new Receiver Mailing is created with identifier {{ param }}",
+            "updated": "A Receiver Mailing is updated with identifier {{ param }}",
+            "deleted": "A Receiver Mailing is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Receiver Mailing {{ id }}?"
+            },
+            "detail": {
+                "title": "Receiver Mailing"
+            },
+            "receiverCode": "Receiver Code",
+            "partnerEmail": "Partner Email",
+            "principalDest": "Principal Dest",
+            "cCDest": "C C Dest",
+            "partner": "Partner"
+        }
+    }
+}

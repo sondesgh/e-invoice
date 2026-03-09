@@ -1,0 +1,176 @@
+﻿<header id="header" class="site-header"
+  [class.scrolled]="scrolled"
+  [class.nav-open]="!isCollapsed">
+
+  <div class="container header-inner">
+
+    <!-- ── Logo ──────────────────────────────────────────────────────────── -->
+    <!--
+      CORRECTION : isAuthenticated() — parenthèses obligatoires car c'est un computed()
+      (signal), pas un boolean. Sans les parenthèses Angular lit la référence de
+      la fonction, qui est toujours truthy → /home tout le temps.
+    -->
+    <a class="logo"
+       [routerLink]="isAuthenticated() ? '/home' : '/firstpage'"
+       (click)="collapseNavbar()">
+      <img src="assets/images/logo.png" alt="ElFatoora" />
+    </a>
+
+    <!-- ── Burger (mobile) ───────────────────────────────────────────────── -->
+    <button
+      class="burger"
+      [class.is-open]="!isCollapsed"
+      (click)="toggleNavbar()"
+      [attr.aria-expanded]="!isCollapsed"
+      aria-label="Menu">
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line"></span>
+    </button>
+
+    <!-- ── Navigation principale ─────────────────────────────────────────── -->
+    <nav class="nav-main" [class.open]="!isCollapsed" role="navigation">
+
+      <!-- ══ VISITEUR non connecté ══════════════════════════════════════════
+           CORRECTION : *ngIf="!isAuthenticated()" — parenthèses obligatoires
+           car isAuthenticated est un computed() signal.
+           Sans parenthèses : !isAuthenticated est toujours false (la fn existe)
+           → ce bloc ne s'affiche jamais.
+      -->
+      <ng-container *ngIf="!isAuthenticated()">
+        <ul class="nav-list">
+          <li *ngFor="let link of publicLinks">
+            <a [href]="link.anchor" class="nav-link" (click)="collapseNavbar()">
+              {{ link.labelKey | translate }}
+            </a>
+          </li>
+
+          <!-- Recherche par référence -->
+          <li>
+            <a href="#searchByRef"
+               class="nav-link nav-icon-link"
+               (click)="collapseNavbar()"
+               [title]="'global.menu.search' | translate">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <span class="visually-hidden">{{ 'global.menu.search' | translate }}</span>
+            </a>
+          </li>
+
+          <!-- Bouton Se connecter -->
+          <li>
+            <button class="btn-signin" (click)="login()">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+              <span>{{ 'global.menu.account.login' | translate }}</span>
+            </button>
+          </li>
+        </ul>
+      </ng-container>
+
+      <!-- ══ UTILISATEUR connecté ═══════════════════════════════════════════
+           CORRECTION : *ngIf="isAuthenticated()" — parenthèses obligatoires
+      -->
+      <ng-container *ngIf="isAuthenticated()">
+        <ul class="nav-list">
+
+          <!-- Accueil -->
+          <li>
+            <a routerLink="/home" routerLinkActive="active"
+               class="nav-link" (click)="collapseNavbar()">
+              <i class="fa fa-home" aria-hidden="true"></i>
+              <span>{{ 'global.menu.home' | translate }}</span>
+            </a>
+          </li>
+
+          <!-- Dropdowns dynamiques -->
+          <ng-container *ngFor="let dd of dropdowns">
+            <li
+              *ngIf="hasAnyRole(dd.roles)"
+              class="nav-dropdown"
+              [class.open]="isDropdownOpen(dd.labelKey)"
+              [class.active]="router.url.includes(dd.routePrefix)">
+
+              <button
+                class="nav-link dropdown-toggle"
+                (click)="toggleDropdown(dd.labelKey)"
+                [attr.aria-expanded]="isDropdownOpen(dd.labelKey)">
+                <i class="fa" [ngClass]="dd.icon" aria-hidden="true"></i>
+                <span>{{ dd.labelKey | translate }}</span>
+                <i class="fa fa-chevron-down caret"
+                   [class.rotated]="isDropdownOpen(dd.labelKey)"
+                   aria-hidden="true"></i>
+              </button>
+
+              <ul class="dropdown-menu"
+                  [class.show]="isDropdownOpen(dd.labelKey)"
+                  role="menu">
+                <ng-container *ngFor="let item of dd.items">
+                  <li *ngIf="hasAnyRole(item.roles ?? [])">
+                    <a [routerLink]="item.route"
+                       routerLinkActive="active"
+                       class="dropdown-item"
+                       (click)="collapseNavbar()"
+                       role="menuitem">
+                      <i class="fa" [ngClass]="item.icon" aria-hidden="true"></i>
+                      <span>{{ item.labelKey | translate }}</span>
+                    </a>
+                  </li>
+                </ng-container>
+
+                <!-- Déconnexion (menu Compte uniquement) -->
+                <ng-container *ngIf="dd.routePrefix === 'account'">
+                  <li class="dropdown-divider" role="separator"></li>
+                  <li>
+                    <button class="dropdown-item logout-item"
+                            (click)="logout()"
+                            role="menuitem">
+                      <i class="fa fa-sign-out" aria-hidden="true"></i>
+                      <span>{{ 'global.menu.account.logout' | translate }}</span>
+                    </button>
+                  </li>
+                </ng-container>
+              </ul>
+            </li>
+          </ng-container>
+
+          <!-- Sélecteur de langue -->
+          <li class="nav-dropdown lang-switcher"
+              [class.open]="isDropdownOpen('lang')">
+            <button
+              class="nav-link dropdown-toggle"
+              (click)="toggleDropdown('lang')"
+              [attr.aria-expanded]="isDropdownOpen('lang')">
+              <i class="fa fa-globe" aria-hidden="true"></i>
+              <span class="lang-code">{{ currentLang.toUpperCase() }}</span>
+              <i class="fa fa-chevron-down caret"
+                 [class.rotated]="isDropdownOpen('lang')"
+                 aria-hidden="true"></i>
+            </button>
+            <ul class="dropdown-menu"
+                [class.show]="isDropdownOpen('lang')"
+                role="menu">
+              <li *ngFor="let lang of availableLanguages">
+                <button
+                  class="dropdown-item"
+                  [class.active]="lang === currentLang"
+                  (click)="changeLanguage(lang)"
+                  role="menuitem">
+                  {{ langLabel(lang) }}
+                </button>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </ng-container>
+
+    </nav>
+  </div>
+</header>
+
+<!-- Overlay mobile -->
+<div
+  class="nav-overlay"
+  [class.visible]="!isCollapsed"
+  (click)="collapseNavbar()"
+  aria-hidden="true">
+</div>

@@ -1,0 +1,35 @@
+{
+    "portailElFatooraApp": {
+        "eDoc" : {
+            "home": {
+                "title": "EDocs",
+                "createLabel": "Créer un nouveau E Doc",
+                "createOrEditLabel": "Créer ou éditer un E Doc",
+                "search": "Recherche pour E Doc"
+            },
+            "created": "Un nouveau E Doc a été créé avec l'identifiant {{ param }}",
+            "updated": "Le E Doc avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le E Doc avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le E Doc {{ id }} ?"
+            },
+            "detail": {
+                "title": "E Doc"
+            },
+            "receiverCode": "Receveur",
+            "documentNumber": "Num Facture",
+            "documentType": "Type",
+            "dateProcess": "Date Insert",
+            "dateDocument": "Date Facture",
+            "amountTax": "Montant Tax",
+            "amount": "Montant",
+            "amountTtc": "Montant Ttc",
+            "generatedRef": "Reference",
+            "processStatus": "Etat",
+            "partnerBySenderCode": "Emetteur",
+            "income": "Income",
+            "outcome": "Outcome",
+            "acknowlegment": "Acknowlegment"
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "portailElFatooraApp": {
+        "tradenetAccount" : {
+            "home": {
+                "title": "TradenetAccounts",
+                "createLabel": "Créer un nouveau Tradenet Account",
+                "createOrEditLabel": "Créer ou éditer un Tradenet Account",
+                "search": "Recherche pour Tradenet Account"
+            },
+            "created": "Un nouveau Tradenet Account a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Tradenet Account avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Tradenet Account avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Tradenet Account {{ id }} ?"
+            },
+            "detail": {
+                "title": "Tradenet Account"
+            },
+            "pwd": "Pwd",
+            "accountType": "Account Type",
+            "signupDate": "Signup Date",
+            "superuser": "Superuser",
+            "nbInvoice": "Nb Invoice",
+            "maxInvoice": "Max Invoice",
+            "activated": "Activated",
+            "activationDate": "Activation Date",
+            "desactivationDate": "Desactivation Date",
+            "connexionType": "Connexion Type",
+            "partner": "Partner"
+        }
+    }
+}

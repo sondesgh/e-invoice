@@ -1,0 +1,25 @@
+{
+    "portailElFatooraApp": {
+        "attachementOut" : {
+            "home": {
+                "title": "AttachementOuts",
+                "createLabel": "Créer un nouveau Attachement Out",
+                "createOrEditLabel": "Créer ou éditer un Attachement Out",
+                "search": "Recherche pour Attachement Out"
+            },
+            "created": "Un nouveau Attachement Out a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Attachement Out avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Attachement Out avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Attachement Out {{ id }} ?"
+            },
+            "detail": {
+                "title": "Attachement Out"
+            },
+            "dateAttachOut": "Date Attach Out",
+            "fileoutContent": "Fileout Content",
+            "nameAttachOut": "Name Attach Out",
+            "outcome": "Outcome"
+        }
+    }
+}

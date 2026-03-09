@@ -1,0 +1,27 @@
+{
+    "portailElFatooraApp": {
+        "partner" : {
+            "home": {
+                "title": "Partenaires",
+                "createLabel": "Créer un nouveau Partenaire",
+                "createOrEditLabel": "Créer ou éditer un Partenaire",
+                "search": "Recherche par code Partenaire"
+            },
+            "created": "Un nouveau Partenaire a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Partenaire avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Partenaire avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Partenaire {{ id }} ?"
+            },
+            "detail": {
+                "title": "Partenaire"
+            },
+            "partnerCode": "Code",
+            "partnerName": "Nom",
+            "partnerAdresse": "Adresse",
+            "registrationDate": "Date Enregistrement",
+            "contractNumber": "Num Contrat",
+            "registrationNumber": "Num Enregistrement"
+        }
+    }
+}

@@ -1,0 +1,26 @@
+<div class="wrapper1">
+  <br /><br />
+
+  <section class="bg-transparent" id="home">
+    <div class="row">
+      <br />
+      <div class="col-md-12">
+
+        <h1 translate="error.title">Error Page!</h1>
+
+        @if (errorMessage) {
+          <div class="alert alert-danger">{{ errorMessage }}</div>
+        }
+
+        @if (errorStatus) {
+          <div class="alert alert-warning">HTTP {{ errorStatus }}</div>
+        }
+
+        <a [routerLink]="['/home']" class="btn btn-primary">
+          <span class="glyphicon glyphicon-home"></span>&nbsp;Retour à l'accueil
+        </a>
+
+      </div>
+    </div>
+  </section>
+</div>

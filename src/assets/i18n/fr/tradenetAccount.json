@@ -1,0 +1,57 @@
+{
+    "portailElFatooraApp": {
+        "tradenetAccount" : {
+            "home": {
+                "title": "Comptes Utilisateurs",
+                "createLabel": "Créer un nouveau Compte",
+                "createOrEditLabel": "Créer ou éditer un Compte",
+                "search": "Recherche par login"
+            },
+            "created": "Un Compte Account a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Compte avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Compte avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Compte {{ id }} ?"
+            },
+            "detail": {
+                "title": "Compte"
+            },
+            "login": "Login",
+            "pwd": "Password",
+            "firstName": "Nom",
+            "lastName": "Prénom",
+            "email": "Email",
+            "langKey": "Langue",
+            "superuser": "Super User",
+            "connexionType": "Type Connexion ",
+            "accountCategory": "Categorie Compte ",
+            "accountType": "Type Compte",
+            "nbInvoice": "Nb Fcatures",
+            "maxInvoice": "Max Factures",
+            "activated": "Activé",
+            "activationDate": "Date Activation ",
+            "desactivationDate": "Date Desactivation ",
+            "createdDate": "Date Creation",
+            "partner": "Partenaire",
+            "option": {
+                "prepaye": "prépayé",
+                "postpaye": "postpayé",
+                "fr": "Francais",
+                "ar": "Arabe",
+                "sender": "Emetteur",
+                "receiver": "Receveur"
+            },
+            "activated": "Activé",
+            "deactivated": "Désactivé",
+            "profiles": "Droits",
+            "connexionParams": "Paramètres de connexion",
+            "connexion": {
+                "ip": "Ip",
+                "port": "Port",
+                "login": "Login",
+                "pwd": "Pwd",
+                "type": "Type"
+            }
+        }
+    }
+}

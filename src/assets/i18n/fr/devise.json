@@ -1,0 +1,23 @@
+{
+    "portailElFatooraApp": {
+        "devise" : {
+            "home": {
+                "title": "Devises",
+                "createLabel": "Créer un nouveau Devise",
+                "createOrEditLabel": "Créer ou éditer un Devise",
+                "search": "Recherche pour Devise"
+            },
+            "created": "Un nouveau Devise a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Devise avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Devise avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Devise {{ id }} ?"
+            },
+            "detail": {
+                "title": "Devise"
+            },
+            "libDevFr": "Lib Dev Fr",
+            "libDevAr": "Lib Dev Ar"
+        }
+    }
+}

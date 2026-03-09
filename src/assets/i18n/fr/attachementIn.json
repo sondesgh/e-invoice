@@ -1,0 +1,25 @@
+{
+    "portailElFatooraApp": {
+        "attachementIn" : {
+            "home": {
+                "title": "AttachementIns",
+                "createLabel": "Créer un nouveau Attachement In",
+                "createOrEditLabel": "Créer ou éditer un Attachement In",
+                "search": "Recherche pour Attachement In"
+            },
+            "created": "Un nouveau Attachement In a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Attachement In avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Attachement In avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Attachement In {{ id }} ?"
+            },
+            "detail": {
+                "title": "Attachement In"
+            },
+            "dateAttachIn": "Date Attach In",
+            "fileinContent": "Filein Content",
+            "nameAttachIn": "Name Attach In",
+            "income": "Income"
+        }
+    }
+}

@@ -1,0 +1,199 @@
+<div class="wrapper1">
+  <br /><br />
+
+  <section id="contact" class="contact text-center bg-gray">
+
+    <div class="heading-contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+            <div class="section-heading">
+              <h2 translate="firstpage.contact.title">Contact</h2>
+              <i class="fa fa-2x fa-angle-down"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-lg-offset-5"><hr class="marginbot-50"></div>
+      </div>
+      <br />
+    </div>
+
+    <div class="row" id="about">
+
+      <!-- Coordonnées -->
+      <div class="col-sm-6 text-left">
+        <ul>
+          <li><i class="fa fa-home fa-2x"></i>
+            <strong>Tunisie TradeNet</strong>
+            Rue du Lac Malaren, Lotissement El Khalij Les Berges du Lac, 1053-Tunis
+          </li>
+          <hr /><br />
+          <li><i class="fa fa-phone fa-2x"></i> (216) 71 861 712</li>
+          <hr /><br />
+          <li><i class="fa fa-fax fa-2x"></i> (216) 71 861 141</li>
+          <hr /><br />
+          <li><i class="fa fa-envelope fa-2x"></i>
+            <a href="mailto:elfatoora@tradenet.com.tn">elfatoora&#64;tradenet.com.tn</a>
+          </li>
+          <hr /><br />
+          <li>
+            <ul class="company-social">
+              <li class="social-facebook">
+                <a href="https://www.facebook.com/ElFatoora/" target="_blank">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </li>
+              <li class="social-google">
+                <a href="http://elfatoora.tn" target="_blank">
+                  <i class="fa fa-google-plus"></i>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="col-sm-6">
+        <form id="contact-form" novalidate #cf="ngForm" (ngSubmit)="contactUs()">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" name="name"
+                       [(ngModel)]="contact.name"
+                       placeholder="{{ 'firstpage.contact.name' | translate }}" required />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" name="socity"
+                       [(ngModel)]="contact.socity"
+                       placeholder="{{ 'firstpage.contact.socity' | translate }}" />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <input type="text" class="form-control" name="coddou"
+                       [(ngModel)]="contact.coddou"
+                       placeholder="{{ 'firstpage.contact.coddou' | translate }}" />
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-phone"></span>
+                  </span>
+                  <input type="text" class="form-control" name="tel"
+                         [(ngModel)]="contact.tel" placeholder="Tel" required />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                  </span>
+                  <input type="email" class="form-control" name="email"
+                         [(ngModel)]="contact.email"
+                         placeholder="{{ 'firstpage.contact.email' | translate }}" required />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="text" class="form-control" name="nbrInvoice"
+                       [(ngModel)]="contact.nbrInvoice"
+                       placeholder="{{ 'firstpage.contact.nbrinvoice' | translate }}" />
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <select class="form-control" name="subject"
+                        [(ngModel)]="contact.subject" required>
+                  <option value="" translate="firstpage.contact.subject">Choose one:</option>
+                  <option value="info"  translate="firstpage.contact.service">Demande Information</option>
+                  <option value="doc"   translate="firstpage.contact.service1">Demande documentation technique</option>
+                  <option value="test"  translate="firstpage.contact.service2">Demande demarrage test</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <textarea class="form-control" name="message" rows="3" required
+                          [(ngModel)]="contact.message"
+                          placeholder="{{ 'firstpage.contact.message' | translate }}">
+                </textarea>
+              </div>
+            </div>
+          </div>
+
+          <br />
+
+          <!-- Captcha contact -->
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-captcha">
+                <div class="row">
+                  <div class="form-group">
+                    <div class="col-md-4">
+                      <img [src]="captchaUrl" id="captchaContact_id" alt="captcha"
+                           style="cursor:pointer;" (click)="refreshCaptcha()" />
+                    </div>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" name="captchaContact"
+                             [(ngModel)]="captchaContact"
+                             placeholder="Saisir texte de verification" />
+                    </div>
+                    <div class="col-md-2">
+                      <a href="javascript:void(0)" title="changer captcha"
+                         (click)="refreshCaptcha()">
+                        <img src="content/images/refresh.png" alt="rafraîchir" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br />
+
+          <div class="row">
+            <div class="col-sm-4 pull-left">
+              <button type="submit" class="btn btn-link-1" id="btnContactUs"
+                      [disabled]="cf.invalid"
+                      translate="firstpage.contact.send">
+                Envoyer Message
+              </button>
+            </div>
+          </div>
+
+          <br /><br />
+
+          <div class="col-sm-12">
+            <app-alert />
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </section>
+</div>

@@ -1,0 +1,97 @@
+﻿// ══════════════════════════════════════════════════════════════════════════════
+// styles.scss  –  ElFatoora · Angular 19
+// ══════════════════════════════════════════════════════════════════════════════
+//
+// ORDRE DE CHARGEMENT (géré dans angular.json > styles[]) :
+//   1. node_modules/bootstrap/dist/css/bootstrap.min.css
+//   2. node_modules/font-awesome/css/font-awesome.min.css
+//   3. src/assets/css/main.css      (@font-face NeoSansStd .ttf)
+//   4. src/assets/css/header.css    (#topMain, #topNav legacy)
+//   5. src/assets/css/navbar.css    (.navbar-custom legacy)
+//   6. src/styles.scss              ← CE FICHIER (dernier = priorité max)
+//
+// essentials.css est SUPPRIMÉ remplacé par le @use ci-dessous.
+//
+
+// ── 0. Migration essentials.css ──────────────────────────────────────────────
+// Remplace src/assets/css/essentials.css (supprimé de angular.json)
+// Contient : reset formulaires, transitions liens, helpers layout
+// Supprimé  : Glyphicons, et-line, font-icons, patterns, owl carousel
+@use 'essentials-migrate';
+// ── Sass moderne ─────────────────────────────────────────────────────────────
+// Nécessaire si ce fichier utilise color.adjust() directement
+// (les composants ont leur propre @use 'sass:color' en tête de fichier)
+@use 'sass:color';
+// ── 1. Fontes NeoSansStd (.woff — complément des .ttf de main.css) ────────────
+@font-face {
+  font-family: 'NeoSansStd';
+  src: url('/assets/fonts/NeoSansStd-Regular_latin-latin-ext_gdi.woff') format('woff');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NeoSansStd';
+  src: url('/assets/fonts/NeoSansStd-Medium_latin-latin-ext_gdi.woff') format('woff');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'NeoSansStd';
+  src: url('/assets/fonts/NeoSansStd-Bold_latin-latin-ext_gdi.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+
+// ── 2. Tokens CSS globaux ─────────────────────────────────────────────────────
+:root {
+  --font-primary: 'NeoSansStd', Arial, sans-serif;
+  --color-brand:  #0f6b8a;
+  --color-dark:   #1a1a2e;
+  --nav-height:   68px;
+}
+
+// ── 3. Base ───────────────────────────────────────────────────────────────────
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-primary);
+  padding-top: var(--nav-height); // compense navbar fixe
+  margin: 0;
+}
+
+// Firstpage : hero plein écran, navbar transparente superposée
+body.page-firstpage {
+  padding-top: 0;
+}
+
+// ── 4. Override legacy header.css ────────────────────────────────────────────
+// header.css : #header { height:96px } — notre composant .site-header gère ça
+#header {
+  height: auto !important;
+}
+
+// ── 5. Scrollbar personnalisée ────────────────────────────────────────────────
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: #f1f1f1; }
+::-webkit-scrollbar-thumb  { background: var(--color-brand); border-radius: 3px; }
+
+// ── 6. Accessibilité ─────────────────────────────────────────────────────────
+.visually-hidden {
+  position:   absolute;
+  width:      1px;
+  height:     1px;
+  padding:    0;
+  margin:     -1px;
+  overflow:   hidden;
+  clip:       rect(0,0,0,0);
+  white-space: nowrap;
+  border:     0;
+}

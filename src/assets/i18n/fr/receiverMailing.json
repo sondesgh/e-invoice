@@ -1,0 +1,26 @@
+{
+    "portailElFatooraApp": {
+        "receiverMailing" : {
+            "home": {
+                "title": "Liste receveurs",
+                "createLabel": "Ajouter",
+                "createOrEditLabel": "Créer ou Modifier",
+                "search": "Search for Receiver Mailing"
+            },
+            "created": "Un receveur mailing  a été créé avec l'identifiant {{ param }}",
+            "updated": "Le receveur mailing avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le receveur mailing avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer les emails de {{ id }}?"
+            },
+            "detail": {
+                "title": "Liste email receveur"
+            },
+            "receiverCode": "Code Receveur ",
+            "partnerEmail": "email Partenaire",
+            "principalDest": "Destinataires Principals",
+            "ccDest": "Destinataires par copies",
+            "partner": "Partenaire"
+        }
+    }
+}

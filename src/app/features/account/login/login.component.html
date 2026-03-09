@@ -1,0 +1,99 @@
+<div class="wrapper1">
+  <section class="bg-transparent" id="home">
+    <div class="invoicewell">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+          <h2 translate="login.title"></h2>
+
+          @if (authenticationError()) {
+            <div class="alert alert-danger">
+              <strong>Échec de connexion!</strong> {{ errorMessage() }}
+            </div>
+          }
+
+          <div class="form-group">
+            <label for="username" translate="global.form.username"></label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              name="username"
+              [(ngModel)]="username"
+              autofocus
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password" translate="global.form.password"></label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              [(ngModel)]="password"
+              required
+            />
+          </div>
+
+          <!-- Captcha image -->
+          <div class="form-group">
+            <label>Captcha</label>
+            <div class="input-group">
+              <img [src]="captchaUrl" id="captcha_id" alt="captcha" style="height:40px; cursor:pointer;" (click)="refreshCaptcha()" />
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="captcha"
+                name="captcha"
+                [placeholder]="'login.captcha.placeholder' | translate"
+                style="max-width:160px; margin-left:8px;"
+              />
+            </div>
+            <small class="text-muted" translate="login.captcha.hint"></small>
+          </div>
+
+          <div class="form-check" style="margin-bottom:1rem">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="rememberMe"
+              [(ngModel)]="rememberMe"
+            />
+            <label class="form-check-label" for="rememberMe" translate="login.form.rememberme"></label>
+          </div>
+
+          <button
+            class="btn btn-primary"
+            [disabled]="isLoading()"
+            (click)="login()"
+            translate="login.form.button"
+          >
+            Sign in
+          </button>
+
+          <hr />
+
+          <p>
+            <a [routerLink]="['/reset/request']" translate="login.password.forgot"></a>
+          </p>
+          <p>
+            <span translate="global.messages.info.register.noaccount"></span>
+            <a [routerLink]="['/register']" translate="global.messages.info.register.link"></a>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Dialog authentification par carte (ROLE_SUPER_USER) -->
+@if (showCardDialog() && cardCredentials) {
+  <app-login-card-dialog
+    [credentials]="cardCredentials"
+    (success)="onCardSuccess()"
+    (cancel)="onCardCancel()"
+  />
+}

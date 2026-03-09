@@ -1,0 +1,927 @@
+<div class="wrapper1">
+  <section class="bg-transparent">
+    <div class="row">
+      <div class="col-md-12">
+        <br><br>
+        <div class="row">
+          <div class="col-sm-12 form-box">
+            <div class="form-bottom">
+
+              <!-- Breadcrumb -->
+              <div class="row">
+                <div class="col-md-3">
+                  <ol class="breadcrumb">
+                    <li><a routerLink="/home"><span class="glyphicon glyphicon-home"></span>
+                        <span class="hidden-sm" translate="global.menu.home">Home</span></a></li>
+                    <li class="active"><span translate="global.menu.invoices.add">Add Invoice</span></li>
+                  </ol>
+                </div>
+              </div>
+
+              <form #myForm="ngForm" novalidate (ngSubmit)="save()" class="form-horizontal text-left">
+
+                <!-- ═══ Action Buttons ═══ -->
+                <div class="row">
+                  <div class="form-actions pull-left">
+                    <button type="button" (click)="exportInvoiceSigned()"
+                      class="btn btn-primary btn-sm" [disabled]="!teifSigned">
+                      Exporter Facture Sign&eacute;e
+                    </button>
+                  </div>
+                  <div class="form-actions pull-right">
+                    <button type="button" (click)="viewInvoice()"
+                      class="btn btn-primary btn-sm" [disabled]="myForm.invalid">
+                      Visualiser Facture
+                    </button>
+                    <button type="button" (click)="exportInvoice()"
+                      class="btn btn-primary btn-sm" [disabled]="myForm.invalid">
+                      Exporter Facture
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm" [disabled]="disSign">
+                      <span *ngIf="!loader.sign">Signer</span>
+                      <span *ngIf="loader.sign">Signature en cours...</span>
+                    </button>
+                    <button type="button" (click)="send()"
+                      class="btn btn-primary btn-sm" [disabled]="disSend">
+                      <span *ngIf="!loader.send">Envoyer</span>
+                      <span *ngIf="loader.send">Envoi en cours...</span>
+                    </button>
+                    <button type="button" (click)="reset()" class="btn btn-warning btn-sm">
+                      Initialiser
+                    </button>
+                  </div>
+                </div>
+                <br>
+
+                <!-- Alerts -->
+                <div *ngFor="let alert of alerts()" class="alert {{alert.type}} divAlert text-center">
+                  {{ alert.message }}
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Info Facture -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title" translate="invoice.header.infofacture.title">Info facture</h5>
+                <hr>
+                <div class="well well-sm well2">
+
+                  <!-- Type Facture -->
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-2 control-lable" translate="invoice.header.infofacture.typefacture">
+                        Type Facture:
+                      </label>
+                      <div class="col-md-3 required">
+                        <select [(ngModel)]="bgm.DocumentType._code" name="DocumentType"
+                          class="form-control" required
+                          (change)="bgm.DocumentType.__text = labelOf(typeFact, bgm.DocumentType._code)"
+                          [class.has-error]="DocumentType.touched && DocumentType.invalid"
+                          #DocumentType="ngModel">
+                          <option value="">--Select Type Facture--</option>
+                          <option *ngFor="let o of typeFact" [value]="o.id">{{ o.name }}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Numéro Facture -->
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-2 control-lable" translate="invoice.header.infofacture.numerofacture">
+                        Numero Facture:
+                      </label>
+                      <div class="col-md-3 required">
+                        <input type="text" [(ngModel)]="bgm.DocumentIdentifier" name="numFact"
+                          maxlength="70" class="form-control" required
+                          [class.has-error]="numFact.touched && numFact.invalid"
+                          #numFact="ngModel">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Date émission (DateText[0]) -->
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-2 control-lable" translate="invoice.date.title">Date:</label>
+                      <div class="col-md-3 required">
+                        <select [(ngModel)]="dtm.DateText[0]._functionCode" name="funcCode0"
+                          class="form-control" required disabled>
+                          <option value="I-31">Date Emission du Document</option>
+                        </select>
+                      </div>
+                      <div class="col-md-2 required">
+                        <select [(ngModel)]="dtm.DateText[0]._format" name="formatDateEmi"
+                          class="form-control" required
+                          [class.has-error]="formatDateEmi.touched && formatDateEmi.invalid"
+                          #formatDateEmi="ngModel">
+                          <option value="">--Format Date--</option>
+                          <option *ngFor="let o of formatDates" [value]="o.id">{{ o.name }}</option>
+                        </select>
+                      </div>
+                      <!-- Date simple -->
+                      <div class="col-md-2 required" *ngIf="dtm.DateText[0]._format !== 'ddMMyy-ddMMyy'">
+                        <input type="date" [(ngModel)]="dtm.DateText[0].__text" name="dateEmi"
+                          class="form-control" required
+                          [class.has-error]="dateEmi.touched && dateEmi.invalid"
+                          #dateEmi="ngModel">
+                      </div>
+                      <!-- Date période De/A -->
+                      <div class="col-md-4 required" *ngIf="dtm.DateText[0]._format === 'ddMMyy-ddMMyy'">
+                        <div class="input-group">
+                          <span class="input-group-addon">De</span>
+                          <input type="date" [(ngModel)]="dtm.DateText[0].__text" name="dateEmiDe"
+                            class="form-control" required #dateEmiDe="ngModel">
+                          <span class="input-group-addon">A</span>
+                          <input type="date" [(ngModel)]="dtm.DateText[0].__textA" name="dateEmiA"
+                            class="form-control" #dateEmiA="ngModel">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Dates supplémentaires (DateText[1..n]) -->
+                  <div *ngFor="let dateItem of dtm.DateText; let i = index">
+                    <div class="row" *ngIf="i >= 1">
+                      <div class="form-group">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-3 required">
+                          <select [(ngModel)]="dateItem._functionCode" [name]="'dateCode'+i"
+                            class="form-control" required>
+                            <option value="">--Select Type Date--</option>
+                            <option *ngFor="let o of typeDate" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-2 required">
+                          <select [(ngModel)]="dateItem._format" [name]="'dateFormat'+i"
+                            class="form-control" required>
+                            <option value="">--Format Date--</option>
+                            <option *ngFor="let o of formatDates" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-2 required" *ngIf="dateItem._format !== 'ddMMyy-ddMMyy'">
+                          <input type="date" [(ngModel)]="dateItem.__text" [name]="'date'+i"
+                            class="form-control" required>
+                        </div>
+                        <div class="col-md-4 required" *ngIf="dateItem._format === 'ddMMyy-ddMMyy'">
+                          <div class="input-group">
+                            <span class="input-group-addon">De</span>
+                            <input type="date" [(ngModel)]="dateItem.__text" [name]="'dateDe'+i"
+                              class="form-control" required>
+                            <span class="input-group-addon">A</span>
+                            <input type="date" [(ngModel)]="dateItem.__textA" [name]="'dateA'+i"
+                              class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" class="button" (click)="$event.preventDefault(); removeRowDate(dtm.DateText, i)"
+                            translate="invoice.date.moinsdate">-Date</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Ajouter date -->
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addRowDate()"
+                        translate="invoice.date.plusdate">+Date</a>
+                    </div>
+                  </div>
+
+                </div><!-- /well Info Facture -->
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Fournisseur (PartnerDetails[0]) -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title" translate="invoice.header.fournisseur.title">Fournisseur</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-2 control-lable">Type Matricule:</label>
+                      <div class="col-md-2">
+                        <select [(ngModel)]="partnerDetails.PartnerDetails[0].Nad.PartnerIdentifier._type"
+                          name="typeMatFourn" class="form-control" required>
+                          <option value="">--Type--</option>
+                          <option *ngFor="let o of typeMatricule" [value]="o.id">{{ o.name }}</option>
+                        </select>
+                      </div>
+                      <label class="col-md-2 control-lable">Matricule Fiscale:</label>
+                      <div class="col-md-2">
+                        <input type="text" [(ngModel)]="partnerDetails.PartnerDetails[0].Nad.PartnerIdentifier.__text"
+                          name="matFourn" class="form-control" required maxlength="35">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-2 control-lable">Nom/Raison Sociale:</label>
+                      <div class="col-md-4">
+                        <input type="text" [(ngModel)]="partnerDetails.PartnerDetails[0].Nad.PartnerName.__text"
+                          name="nomFourn" class="form-control" required maxlength="35">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Adresses Fournisseur -->
+                  <div *ngFor="let adr of partnerDetails.PartnerDetails[0].Nad.PartnerAdresses; let ai = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Adresse {{ai+1}}:</label>
+                        <div class="col-md-4">
+                          <input type="text" [(ngModel)]="adr.AdressDescription"
+                            [name]="'adrFourn'+ai" class="form-control" maxlength="70">
+                        </div>
+                        <div class="col-md-2">
+                          <select [(ngModel)]="adr.Country.__text" [name]="'paysAdr'+ai"
+                            class="form-control">
+                            <option value="">--Pays--</option>
+                            <option *ngFor="let o of typeCountry" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeAdr(partnerDetails.PartnerDetails[0].Nad.PartnerAdresses, ai)">
+                            -Adresse
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addAdr(partnerDetails.PartnerDetails[0].Nad.PartnerAdresses)">
+                        +Adresse
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Références Fournisseur -->
+                  <div *ngFor="let rff of partnerDetails.PartnerDetails[0].RffSection; let ri = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Référence:</label>
+                        <div class="col-md-2">
+                          <select [(ngModel)]="rff.Reference._refID" [name]="'rffTypeFourn'+ri"
+                            class="form-control">
+                            <option value="">--Type Référence--</option>
+                            <option *ngFor="let o of reference" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-3">
+                          <input type="text" [(ngModel)]="rff.Reference.__text"
+                            [name]="'rffValFourn'+ri" class="form-control" maxlength="70">
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeRff(partnerDetails.PartnerDetails[0].RffSection, ri)">
+                            -Réf
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addRff(partnerDetails.PartnerDetails[0].RffSection)">
+                        +Référence
+                      </a>
+                    </div>
+                  </div>
+                </div><!-- /well Fournisseur -->
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Client (PartnerDetails[1]) -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title">Client</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-2 control-lable">Type Matricule:</label>
+                      <div class="col-md-2">
+                        <select [(ngModel)]="partnerDetails.PartnerDetails[1].Nad.PartnerIdentifier._type"
+                          name="typeMatClient" class="form-control" required>
+                          <option value="">--Type--</option>
+                          <option *ngFor="let o of typeMatricule" [value]="o.id">{{ o.name }}</option>
+                        </select>
+                      </div>
+                      <label class="col-md-2 control-lable">Matricule Fiscale:</label>
+                      <div class="col-md-2">
+                        <input type="text"
+                          [(ngModel)]="partnerDetails.PartnerDetails[1].Nad.PartnerIdentifier.__text"
+                          name="matClient" class="form-control" required maxlength="35">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-2 control-lable">Nom/Raison Sociale:</label>
+                      <div class="col-md-4">
+                        <input type="text"
+                          [(ngModel)]="partnerDetails.PartnerDetails[1].Nad.PartnerName.__text"
+                          name="nomClient" class="form-control" required maxlength="35">
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Adresses Client -->
+                  <div *ngFor="let adr of partnerDetails.PartnerDetails[1].Nad.PartnerAdresses; let ai = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Adresse {{ai+1}}:</label>
+                        <div class="col-md-4">
+                          <input type="text" [(ngModel)]="adr.AdressDescription"
+                            [name]="'adrClient'+ai" class="form-control" maxlength="70">
+                        </div>
+                        <div class="col-md-2">
+                          <select [(ngModel)]="adr.Country.__text" [name]="'paysAdrClient'+ai"
+                            class="form-control">
+                            <option value="">--Pays--</option>
+                            <option *ngFor="let o of typeCountry" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeAdr(partnerDetails.PartnerDetails[1].Nad.PartnerAdresses, ai)">
+                            -Adresse
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addAdr(partnerDetails.PartnerDetails[1].Nad.PartnerAdresses)">
+                        +Adresse
+                      </a>
+                    </div>
+                  </div>
+                  <!-- Références Client -->
+                  <div *ngFor="let rff of partnerDetails.PartnerDetails[1].RffSection; let ri = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Référence:</label>
+                        <div class="col-md-2">
+                          <select [(ngModel)]="rff.Reference._refID" [name]="'rffTypeClient'+ri"
+                            class="form-control">
+                            <option value="">--Type Référence--</option>
+                            <option *ngFor="let o of reference" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-3">
+                          <input type="text" [(ngModel)]="rff.Reference.__text"
+                            [name]="'rffValClient'+ri" class="form-control" maxlength="70">
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeRff(partnerDetails.PartnerDetails[1].RffSection, ri)">
+                            -Réf
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addRff(partnerDetails.PartnerDetails[1].RffSection)">
+                        +Référence
+                      </a>
+                    </div>
+                  </div>
+                </div><!-- /well Client -->
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Autres Partenaires (PartnerDetails[2..n]) -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <div *ngFor="let partner of partnerDetails.PartnerDetails; let pi = index">
+                  <div *ngIf="pi >= 2">
+                    <h5 class="form-section-title">Partenaire {{ pi + 1 }}</h5>
+                    <hr>
+                    <div class="well well-sm well2">
+                      <div class="row">
+                        <div class="form-group">
+                          <label class="col-md-2 control-lable">Type Partenaire:</label>
+                          <div class="col-md-3">
+                            <select [(ngModel)]="partner._functionCode" [name]="'typePartner'+pi"
+                              class="form-control">
+                              <option value="">--Type--</option>
+                              <option *ngFor="let o of typePartner" [value]="o.id">{{ o.name }}</option>
+                            </select>
+                          </div>
+                          <div class="col-md-1">
+                            <a href="" (click)="$event.preventDefault(); removePartner(pi)">-Partenaire</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group">
+                          <label class="col-md-2 control-lable">Matricule:</label>
+                          <div class="col-md-3">
+                            <input type="text"
+                              [(ngModel)]="partner.Nad.PartnerIdentifier.__text"
+                              [name]="'matPart'+pi" class="form-control" maxlength="35">
+                          </div>
+                          <label class="col-md-2 control-lable">Nom:</label>
+                          <div class="col-md-3">
+                            <input type="text" [(ngModel)]="partner.Nad.PartnerName.__text"
+                              [name]="'nomPart'+pi" class="form-control" maxlength="35">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-offset-2 col-md-2">
+                    <a href="" (click)="$event.preventDefault(); addPartner()">+Partenaire</a>
+                  </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Paiement -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title">Paiement</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <div *ngFor="let pyt of pytSection.PytSectionDetails; let pi = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Terme Paiement:</label>
+                        <div class="col-md-3">
+                          <select [(ngModel)]="pyt.Pyt._functionCode" [name]="'pytTerm'+pi"
+                            class="form-control">
+                            <option value="">--Terme--</option>
+                            <option *ngFor="let o of paymentTerms" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removePyt(pi)">-Paiement</a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- PytDtm -->
+                    <div *ngIf="pyt.PytDtm?.DateText?.length">
+                      <div *ngFor="let pytDate of pyt.PytDtm.DateText; let di = index">
+                        <div class="row">
+                          <div class="form-group">
+                            <label class="col-md-2 control-lable">Date Paiement:</label>
+                            <div class="col-md-2">
+                              <select [(ngModel)]="pytDate._format" [name]="'pytDateFormat'+pi+'_'+di"
+                                class="form-control">
+                                <option value="">--Format--</option>
+                                <option *ngFor="let o of formatDates" [value]="o.id">{{ o.name }}</option>
+                              </select>
+                            </div>
+                            <div class="col-md-2" *ngIf="pytDate._format !== 'ddMMyy-ddMMyy'">
+                              <input type="date" [(ngModel)]="pytDate.__text"
+                                [name]="'pytDate'+pi+'_'+di" class="form-control">
+                            </div>
+                            <div class="col-md-4" *ngIf="pytDate._format === 'ddMMyy-ddMMyy'">
+                              <div class="input-group">
+                                <span class="input-group-addon">De</span>
+                                <input type="date" [(ngModel)]="pytDate.__text"
+                                  [name]="'pytDateDe'+pi+'_'+di" class="form-control">
+                                <span class="input-group-addon">A</span>
+                                <input type="date" [(ngModel)]="pytDate.__textA"
+                                  [name]="'pytDateA'+pi+'_'+di" class="form-control">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- PytMoa -->
+                    <div class="row" *ngIf="pyt.PytMoa">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Montant Paiement:</label>
+                        <div class="col-md-2">
+                          <input type="number" [(ngModel)]="pyt.PytMoa.Amount.__text"
+                            [name]="'pytMoa'+pi" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                          <select [(ngModel)]="pyt.PytMoa.Amount._currencyIdentifier"
+                            [name]="'pytDevise'+pi" class="form-control">
+                            <option *ngFor="let o of devise" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addPyt()">+Paiement</a>
+                    </div>
+                  </div>
+                </div><!-- /well Paiement -->
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Observation (FTX) -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title">Observation</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <div *ngFor="let ftxItem of ftx.FreeTextDetail; let fi = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Sujet:</label>
+                        <div class="col-md-2">
+                          <select [(ngModel)]="ftxItem.SubjectCode" [name]="'ftxSubj'+fi"
+                            class="form-control">
+                            <option value="">--Sujet--</option>
+                            <option *ngFor="let o of ftxSubjectCodes" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <label class="col-md-1 control-lable">Texte:</label>
+                        <div class="col-md-4">
+                          <input type="text" [(ngModel)]="ftxItem.FreeTexts"
+                            [name]="'ftxText'+fi" class="form-control" maxlength="512">
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeFtx(fi)">-Obs</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addFtx()">+Observation</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Condition Specifique -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title">Condition Specifique</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <div *ngFor="let sc of specialConditions; let sci = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Condition:</label>
+                        <div class="col-md-4">
+                          <input type="text" [(ngModel)]="sc.SpecialConditionText"
+                            [name]="'sc'+sci" class="form-control" maxlength="512">
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeSpecialCondition(sci)">-Cond</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addSpecialCondition()">+Condition</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Articles (LinSection) -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title">Articles</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <!-- Formulaire saisie article courant -->
+                  <div class="panel panel-default text-left">
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="form-group">
+                          <label class="col-md-2 control-lable">Identifiant:</label>
+                          <div class="col-md-2">
+                            <input type="text" [(ngModel)]="linType.ItemIdentifier"
+                              name="linId" class="form-control" maxlength="35">
+                          </div>
+                          <label class="col-md-1 control-lable">Code:</label>
+                          <div class="col-md-2">
+                            <input type="text" [(ngModel)]="linType.LinImd.ItemCode"
+                              name="linCode" class="form-control" maxlength="35">
+                          </div>
+                          <label class="col-md-1 control-lable">Désignation:</label>
+                          <div class="col-md-3">
+                            <input type="text" [(ngModel)]="linType.LinImd.ItemDescription"
+                              name="linDesc" class="form-control" required maxlength="512">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group">
+                          <label class="col-md-2 control-lable">Quantité:</label>
+                          <div class="col-md-2">
+                            <input type="number" [(ngModel)]="linType.LinQty.Quantity.__text"
+                              name="linQty" class="form-control" required min="0">
+                          </div>
+                          <label class="col-md-1 control-lable">Unité:</label>
+                          <div class="col-md-2">
+                            <input type="text" [(ngModel)]="linType.LinQty.Quantity._measurementUnit"
+                              name="linUnit" class="form-control" maxlength="10">
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Taxes article -->
+                      <div *ngFor="let linTax of linType.LinTax; let lti = index">
+                        <div class="row">
+                          <div class="form-group">
+                            <label class="col-md-2 control-lable">Type Taxe:</label>
+                            <div class="col-md-3">
+                              <select [(ngModel)]="linTax.TaxTypeName._code" [name]="'linTaxType'+lti"
+                                class="form-control"
+                                (change)="linTax.TaxTypeName.__text = labelOf(typeTaxe, linTax.TaxTypeName._code)">
+                                <option value="">--Taxe--</option>
+                                <option *ngFor="let o of typeTaxe" [value]="o.id">{{ o.name }}</option>
+                              </select>
+                            </div>
+                            <label class="col-md-1 control-lable">Taux(%):</label>
+                            <div class="col-md-2">
+                              <input type="number" [(ngModel)]="linTax.TaxDetails.TaxRate"
+                                [name]="'linTaxRate'+lti" class="form-control" min="0" max="100">
+                            </div>
+                            <label class="col-md-1 control-lable">Base(%):</label>
+                            <div class="col-md-2">
+                              <input type="number" [(ngModel)]="linTax.TaxDetails.TaxRateBasis"
+                                [name]="'linTaxBase'+lti" class="form-control">
+                            </div>
+                            <div class="col-md-1">
+                              <a href="" (click)="$event.preventDefault(); removeLinTax(lti)">-Taxe</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-offset-2 col-md-2">
+                          <a href="" (click)="$event.preventDefault(); addLinTax()">+Taxe Article</a>
+                        </div>
+                      </div>
+                      <!-- Montants article -->
+                      <div *ngFor="let linMoa of linType.LinMoa.MoaDetails; let lmi = index">
+                        <div class="row">
+                          <div class="form-group">
+                            <label class="col-md-2 control-lable">Type Montant:</label>
+                            <div class="col-md-3">
+                              <select [(ngModel)]="linMoa.Moa._amountTypeCode" [name]="'linMoaType'+lmi"
+                                class="form-control">
+                                <option value="">--Type--</option>
+                                <option *ngFor="let o of typeMontant" [value]="o.id">{{ o.name }}</option>
+                              </select>
+                            </div>
+                            <label class="col-md-1 control-lable">Montant:</label>
+                            <div class="col-md-2">
+                              <input type="number" [(ngModel)]="linMoa.Moa.Amount.__text"
+                                [name]="'linMoaVal'+lmi" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                              <select [(ngModel)]="linMoa.Moa.Amount._currencyIdentifier"
+                                [name]="'linMoaDevise'+lmi" class="form-control">
+                                <option *ngFor="let o of devise" [value]="o.id">{{ o.name }}</option>
+                              </select>
+                            </div>
+                            <div class="col-md-1">
+                              <a href="" (click)="$event.preventDefault(); removeLinMoa(lmi)">-Montant</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-offset-2 col-md-2">
+                          <a href="" (click)="$event.preventDefault(); addLinMoa()">+Montant Article</a>
+                        </div>
+                      </div>
+                      <!-- Boutons article -->
+                      <div class="row">
+                        <div class="form-actions pull-right">
+                          <button type="button" (click)="addLin()"
+                            class="btn btn-primary btn-sm" [disabled]="!linType.LinMoa.MoaDetails.length">
+                            Ajouter Article
+                          </button>
+                          <button type="button" (click)="updateLin()"
+                            class="btn btn-info btn-sm" *ngIf="indexForUpdate !== ''">
+                            Modifier Article
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Liste des articles saisis -->
+                  <div class="panel panel-primary" *ngIf="lin.Lin.length > 0">
+                    <div class="panel-body">
+                      <div class="divScroll">
+                        <table class="table table-bordered table-hover">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Code</th>
+                              <th>Désignation</th>
+                              <th>Qté</th>
+                              <th>Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let l of lin.Lin; let li = index">
+                              <td>{{ li + 1 }}</td>
+                              <td>{{ l.LinImd?.ItemCode }}</td>
+                              <td>{{ l.LinImd?.ItemDescription }}</td>
+                              <td>{{ l.LinQty?.Quantity?.__text }}</td>
+                              <td>
+                                <a href="" (click)="$event.preventDefault(); setLinForUpdate(l, li)">Modifier</a>
+                                &nbsp;
+                                <a href="" (click)="$event.preventDefault(); removeLin(li)">Supprimer</a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /well Articles -->
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Réduction / Charge (InvoiceAlc) -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title">Réduction / Charge</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <div *ngFor="let alc of invoiceAlc.AllowanceDetails; let ali = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Type:</label>
+                        <div class="col-md-3">
+                          <select [(ngModel)]="alc.Alc._functionCode" [name]="'alcType'+ali"
+                            class="form-control">
+                            <option value="">--Type--</option>
+                            <option *ngFor="let o of allowanceType" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeAlc(ali)">-Réduction</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Montant:</label>
+                        <div class="col-md-2">
+                          <input type="number" [(ngModel)]="alc.AlcMoa.Amount.__text"
+                            [name]="'alcMoa'+ali" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                          <select [(ngModel)]="alc.AlcMoa.Amount._currencyIdentifier"
+                            [name]="'alcDevise'+ali" class="form-control">
+                            <option *ngFor="let o of devise" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addAlc()">+Réduction/Charge</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Détails Montant Facture (InvoiceMoa) -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title">Détails Montant Facture</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <div *ngFor="let mnt of amountDetails.AmountDetails; let mi = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Type Montant:</label>
+                        <div class="col-md-3">
+                          <select [(ngModel)]="mnt.Moa._amountTypeCode" [name]="'mntType'+mi"
+                            class="form-control">
+                            <option value="">--Type--</option>
+                            <option *ngFor="let o of typeMontant" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <label class="col-md-1 control-lable">Montant:</label>
+                        <div class="col-md-2">
+                          <input type="number" [(ngModel)]="mnt.Moa.Amount.__text"
+                            [name]="'mntVal'+mi" class="form-control" required>
+                        </div>
+                        <div class="col-md-2">
+                          <select [(ngModel)]="mnt.Moa.Amount._currencyIdentifier"
+                            [name]="'mntDevise'+mi" class="form-control">
+                            <option *ngFor="let o of devise" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeMnt(mi)">-Montant</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addMnt()">+Montant</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Section : Détails Tax Facture (InvoiceTax) -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <h5 class="form-section-title">Détails Tax Facture</h5>
+                <hr>
+                <div class="well well-sm well2">
+                  <div *ngFor="let tax of invoiceTaxDetails.InvoiceTaxDetails; let ti = index">
+                    <div class="row">
+                      <div class="form-group">
+                        <label class="col-md-2 control-lable">Type Taxe:</label>
+                        <div class="col-md-3">
+                          <select [(ngModel)]="tax.Tax.TaxTypeName._code" [name]="'taxType'+ti"
+                            class="form-control"
+                            (change)="tax.Tax.TaxTypeName.__text = labelOf(typeTaxe, tax.Tax.TaxTypeName._code)">
+                            <option value="">--Taxe--</option>
+                            <option *ngFor="let o of typeTaxe" [value]="o.id">{{ o.name }}</option>
+                          </select>
+                        </div>
+                        <label class="col-md-1 control-lable">Taux(%):</label>
+                        <div class="col-md-2">
+                          <input type="number" [(ngModel)]="tax.Tax.TaxDetails.TaxRate"
+                            [name]="'taxRate'+ti" class="form-control" min="0" max="100">
+                        </div>
+                        <div class="col-md-1">
+                          <a href="" (click)="$event.preventDefault(); removeTax(ti)">-Taxe</a>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Montants de la taxe -->
+                    <div *ngFor="let taxMoa of tax.AmountDetails; let tmi = index">
+                      <div class="row">
+                        <div class="form-group">
+                          <label class="col-md-2 control-lable">Type Montant Taxe:</label>
+                          <div class="col-md-3">
+                            <select [(ngModel)]="taxMoa.Moa._amountTypeCode"
+                              [name]="'taxMoaType'+ti+'_'+tmi" class="form-control">
+                              <option value="">--Type--</option>
+                              <option *ngFor="let o of typeMontant" [value]="o.id">{{ o.name }}</option>
+                            </select>
+                          </div>
+                          <label class="col-md-1 control-lable">Montant:</label>
+                          <div class="col-md-2">
+                            <input type="number" [(ngModel)]="taxMoa.Moa.Amount.__text"
+                              [name]="'taxMoaVal'+ti+'_'+tmi" class="form-control">
+                          </div>
+                          <div class="col-md-2">
+                            <select [(ngModel)]="taxMoa.Moa.Amount._currencyIdentifier"
+                              [name]="'taxMoaDevise'+ti+'_'+tmi" class="form-control">
+                              <option *ngFor="let o of devise" [value]="o.id">{{ o.name }}</option>
+                            </select>
+                          </div>
+                          <div class="col-md-1">
+                            <a href="" (click)="$event.preventDefault(); removeTaxMoa(ti, tmi)">-Mnt</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-offset-2 col-md-2">
+                        <a href="" (click)="$event.preventDefault(); addTaxMoa(ti)">+Montant Taxe</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-2">
+                      <a href="" (click)="$event.preventDefault(); addTax()">+Taxe Facture</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <!-- Boutons bas de page -->
+                <!-- ═══════════════════════════════════════════════════════════ -->
+                <div class="row">
+                  <div class="form-actions pull-left">
+                    <button type="button" (click)="exportInvoiceSigned()"
+                      class="btn btn-primary btn-sm" [disabled]="!teifSigned">
+                      Exporter Facture Sign&eacute;e
+                    </button>
+                  </div>
+                  <div class="form-actions pull-right">
+                    <button type="button" (click)="exportInvoice()"
+                      class="btn btn-primary btn-sm" [disabled]="myForm.invalid">
+                      Exporter Facture
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-sm" [disabled]="disSign">
+                      <span *ngIf="!loader.sign">Signer</span>
+                      <span *ngIf="loader.sign">Signature en cours...</span>
+                    </button>
+                    <button type="button" (click)="send()"
+                      class="btn btn-primary btn-sm" [disabled]="disSend">
+                      <span *ngIf="!loader.send">Envoyer</span>
+                      <span *ngIf="loader.send">Envoi en cours...</span>
+                    </button>
+                    <button type="button" (click)="reset()" class="btn btn-warning btn-sm">
+                      Initialiser
+                    </button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

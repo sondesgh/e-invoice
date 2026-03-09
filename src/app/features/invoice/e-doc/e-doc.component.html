@@ -1,0 +1,346 @@
+<div class="wrapper1">
+  <section class="bg-transparent">
+    <div class="row">
+      <div class="col-md-12">
+        <br><br>
+        <div class="row">
+          <div class="col-sm-12 form-box">
+            <div class="form-bottom">
+
+              <!-- Breadcrumb -->
+              <div class="row">
+                <div class="col-md-3">
+                  <ol class="breadcrumb">
+                    <li><a routerLink="/home">
+                      <span class="glyphicon glyphicon-home"></span>
+                      <span class="hidden-sm" translate="global.menu.home"></span>
+                    </a></li>
+                    <li class="active">
+                      <span translate="portailElFatooraApp.eDoc.home.title"></span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <br><br>
+              <app-alert></app-alert>
+
+              <!-- ── Formulaire de recherche ── -->
+              <form class="form-horizontal text-left">
+                <div class="well well-sm well2">
+                  <div class="row">
+                    <div class="form-actions pull-right">
+                      <a href="" class="btn btn-3d btn-md btn-primary"
+                        (click)="$event.preventDefault(); fetchEDocs()">
+                        <i class="glyphicon glyphicon-search"></i> Rechercher
+                      </a>
+                      <a href="" class="btn btn-3d btn-md btn-red"
+                        (click)="$event.preventDefault(); clear()">
+                        <i class="glyphicon glyphicon-trash"></i> Initialiser
+                      </a>
+                    </div>
+                  </div>
+                  <br>
+
+                  <!-- Date Facture De/A + Type Partenaire -->
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-1 control-lable">Date Facture</label>
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">de</span>
+                          <input type="date" class="form-control" [(ngModel)]="efactCriteria.dateDocument" name="dateDocument">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">&agrave;</span>
+                          <input type="date" class="form-control" [(ngModel)]="efactCriteria.dateDocumentTo" name="dateDocumentTo">
+                        </div>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <label class="col-md-2 control-lable">Type Partenaire</label>
+                      <div class="col-md-4">
+                        <select [(ngModel)]="efactCriteria.typeUser" class="form-control" name="typeUser" (change)="updatePartner()">
+                          <option value="">--Tous--</option>
+                          <option value="E">Emetteur Facture</option>
+                          <option value="R">Receveur Facture</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Date Insertion De/A + Partenaire / Receveur -->
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-1 control-lable">Date Insertion</label>
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">de</span>
+                          <input type="date" class="form-control" [(ngModel)]="efactCriteria.dateProcess" name="dateProcess">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">&agrave;</span>
+                          <input type="date" class="form-control" [(ngModel)]="efactCriteria.dateProcessTo" name="dateProcessTo">
+                        </div>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <label class="col-md-2 control-lable">Partenaire</label>
+                      <div class="col-md-2">
+                        <input type="text" [(ngModel)]="efactCriteria.partnerCode" name="partnerCode"
+                          class="form-control" placeholder="Saisir Emetteur">
+                      </div>
+                      <div class="col-md-2">
+                        <input type="text" [(ngModel)]="efactCriteria.receiverCode" name="receiverCode"
+                          class="form-control" placeholder="Saisir Receveur">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Montant TTC De/A + Num Facture -->
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-1 control-lable">Montant TTC</label>
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">de</span>
+                          <input type="text" [(ngModel)]="efactCriteria.amountTtcFrom" name="amountFrom" class="form-control input-sm">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">&agrave;</span>
+                          <input type="text" [(ngModel)]="efactCriteria.amountTtcTo" name="amountTo" class="form-control input-sm">
+                        </div>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <label class="col-md-2 control-lable">Num Facture</label>
+                      <div class="col-md-4">
+                        <input type="text" [(ngModel)]="efactCriteria.documentNumber" name="numFact" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Montant Tax De/A + Référence TTN -->
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-1 control-lable">Montant Tax</label>
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">de</span>
+                          <input type="text" [(ngModel)]="efactCriteria.amountTax" name="amountTax" class="form-control input-sm">
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="input-group">
+                          <span class="input-group-addon">&agrave;</span>
+                          <input type="text" [(ngModel)]="efactCriteria.amountTaxTo" name="amountTaxTo" class="form-control input-sm">
+                        </div>
+                      </div>
+                      <div class="col-md-1"></div>
+                      <label class="col-md-2 control-lable">Référence TTN Facture</label>
+                      <div class="col-md-4">
+                        <input type="text" [(ngModel)]="efactCriteria.generatedRef" name="generatedRef" class="form-control input-sm">
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Type Facture + Etat Facture -->
+                  <div class="row">
+                    <div class="form-group">
+                      <label class="col-md-1 control-lable">Type Facture</label>
+                      <div class="col-md-2">
+                        <select [(ngModel)]="efactCriteria.documentType" class="form-control" name="documentType">
+                          <option value="">--Tous--</option>
+                          <option *ngFor="let o of typeFact" [value]="o.name">{{ o.name }}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3"></div>
+                      <label class="col-md-2 control-lable">Etat Facture</label>
+                      <div class="col-md-4">
+                        <select [(ngModel)]="efactCriteria.processStatus" class="form-control" name="processStatus">
+                          <option value="">--Tous--</option>
+                          <option value="E">Trait&eacute;e(s)</option>
+                          <option value="X">Eronn&eacute;e(s)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+
+              <br><br>
+
+              <!-- ── Tableau des résultats ── -->
+              <div class="table-responsive" *ngIf="eDocs.length > 0">
+
+                <!-- Envoi groupé (haut) -->
+                <div class="row" *ngIf="showSelected">
+                  <div class="form-actions pull-right">
+                    <a href="" class="btn btn-3d btn-md btn-default"
+                      (click)="$event.preventDefault(); sendFatoorasTo()">
+                      <i class="glyphicon glyphicon-send"></i>
+                      Envoyer Factures au {{ efactCriteria.receiverCode }}
+                    </a>
+                  </div>
+                </div>
+
+                <table class="table jh-table table-striped table-hover">
+                  <thead style="background-color: #C02942; color: #FFF;">
+                    <tr>
+                      <th (click)="sortBy('id')" style="cursor:pointer">
+                        <span translate="global.field.id"></span>
+                        <span class="glyphicon glyphicon-sort"></span>
+                      </th>
+                      <th (click)="sortBy('partnerCode')" style="cursor:pointer">
+                        <span translate="portailElFatooraApp.eDoc.partnerBySenderCode"></span>
+                        <span class="glyphicon glyphicon-sort"></span>
+                      </th>
+                      <th (click)="sortBy('receiverCode')" style="cursor:pointer">
+                        <span translate="portailElFatooraApp.eDoc.receiverCode"></span>
+                        <span class="glyphicon glyphicon-sort"></span>
+                      </th>
+                      <th (click)="sortBy('documentNumber')" style="cursor:pointer">
+                        <span translate="portailElFatooraApp.eDoc.documentNumber"></span>
+                        <span class="glyphicon glyphicon-sort"></span>
+                      </th>
+                      <th (click)="sortBy('dateDocument')" style="cursor:pointer">
+                        <span translate="portailElFatooraApp.eDoc.dateDocument"></span>
+                        <span class="glyphicon glyphicon-sort"></span>
+                      </th>
+                      <th (click)="sortBy('amountTtc')" style="cursor:pointer">
+                        <span translate="portailElFatooraApp.eDoc.amountTtc"></span>
+                        <span class="glyphicon glyphicon-sort"></span>
+                      </th>
+                      <th (click)="sortBy('dateProcess')" style="cursor:pointer">
+                        <span translate="portailElFatooraApp.eDoc.dateProcess"></span>
+                        <span class="glyphicon glyphicon-sort"></span>
+                      </th>
+                      <th (click)="sortBy('generatedRef')" style="cursor:pointer">
+                        <span translate="portailElFatooraApp.eDoc.generatedRef"></span>
+                        <span class="glyphicon glyphicon-sort"></span>
+                      </th>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let eDoc of eDocs; let i = index">
+                      <tr>
+                        <td>{{ eDoc.id }}</td>
+                        <td>{{ eDoc.partnerCode }}</td>
+                        <td>{{ eDoc.receiverCode }}</td>
+                        <td>{{ eDoc.documentNumber }}</td>
+                        <td>{{ eDoc.dateDocument | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ eDoc.amountTtc }}</td>
+                        <td>{{ eDoc.dateProcess | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ eDoc.generatedRef }}</td>
+
+                        <!-- Visualiser -->
+                        <td style="text-align:center">
+                          <a href="" *ngIf="eDoc.processStatus === 'E'"
+                            (click)="$event.preventDefault(); showDetailInvoice(i, eDoc.id)">
+                            <i *ngIf="ligneNumber !== i" class="glyphicon glyphicon-zoom-in"></i>
+                            <i *ngIf="loader().detail && ligneNumber === i" class="fa fa-spinner fa-spin"></i>
+                            <i *ngIf="ligneNumber === i && !loader().detail" class="glyphicon glyphicon-zoom-out"></i>
+                          </a>
+                          <a href="" *ngIf="eDoc.processStatus === 'X'"
+                            (click)="$event.preventDefault(); showDetailInvoiceError(i, eDoc.id)">
+                            <i *ngIf="ligneNumber !== i" class="glyphicon glyphicon-zoom-in"></i>
+                            <i *ngIf="loader().error && ligneNumber === i" class="fa fa-spinner fa-spin"></i>
+                            <i *ngIf="ligneNumber === i && !loader().error" class="glyphicon glyphicon-zoom-out"></i>
+                          </a>
+                        </td>
+
+                        <!-- PDF -->
+                        <td>
+                          <a href="" *ngIf="eDoc.processStatus === 'E'"
+                            (click)="$event.preventDefault(); showInvoicePdf(eDoc.id)">
+                            <img alt="PDF" src="content/images/pdf_20.gif" />
+                            <i *ngIf="loader().pdf && ligneNumber === i" class="fa fa-spinner fa-spin"></i>
+                          </a>
+                        </td>
+
+                        <!-- Envoyer / Sélectionner -->
+                        <td>
+                          <div *ngIf="eDoc.processStatus === 'E'">
+                            <a href="" *ngIf="!showSelected" class="aParent"
+                              (click)="$event.preventDefault(); sendFatooraTo(eDoc.receiverCode!, eDoc.id, eDoc.generatedRef)">
+                              Envoyer
+                              <i *ngIf="loader().send && ligneNumber === i" class="fa fa-spinner fa-spin"></i>
+                            </a>
+                            <span *ngIf="showSelected">
+                              <input type="checkbox" [(ngModel)]="eDoc.toSend" [name]="'toSend'+i">
+                              <span class="glyphicon glyphicon-envelope"></span>
+                            </span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <!-- Ligne détail inline -->
+                      <tr *ngIf="ligneNumber === i && !loader().detail && !loader().error">
+                        <td colspan="10" id="detailFact">
+                          <app-invoice-detail *ngIf="eDoc.processStatus === 'E'" [teif]="teif"></app-invoice-detail>
+                          <app-invoice-detail-errors *ngIf="eDoc.processStatus === 'X'" [errors]="errors"></app-invoice-detail-errors>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+
+                <!-- Envoi groupé (bas) -->
+                <div class="row" *ngIf="showSelected">
+                  <div class="form-actions pull-right">
+                    <a href="" class="btn btn-3d btn-md btn-default"
+                      (click)="$event.preventDefault(); sendFatoorasTo()">
+                      <i class="glyphicon glyphicon-send"></i>
+                      Envoyer Factures au {{ efactCriteria.receiverCode }}
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="text-center" *ngIf="totalItems > pageSize">
+                  <nav>
+                    <ul class="pagination pagination-sm">
+                      <li [class.disabled]="page <= 1">
+                        <a href="" (click)="$event.preventDefault(); goToPage(page - 1)">«</a>
+                      </li>
+                      <li *ngFor="let p of pageNumbers()" [class.active]="p === page">
+                        <a href="" (click)="$event.preventDefault(); goToPage(p)">{{ p }}</a>
+                      </li>
+                      <li [class.disabled]="page >= totalPages()">
+                        <a href="" (click)="$event.preventDefault(); goToPage(page + 1)">»</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+              </div><!-- /table-responsive -->
+
+              <!-- Modaux inline -->
+              <app-e-doc-dialog
+                *ngIf="showDialog"
+                [entity]="selectedEDoc"
+                (saved)="onDialogSaved()"
+                (cancelled)="onDialogCancelled()">
+              </app-e-doc-dialog>
+
+              <app-e-doc-delete-dialog
+                *ngIf="showDeleteDialog"
+                [entity]="selectedEDoc!"
+                (deleted)="onDeleteConfirmed()"
+                (cancelled)="showDeleteDialog = false">
+              </app-e-doc-delete-dialog>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

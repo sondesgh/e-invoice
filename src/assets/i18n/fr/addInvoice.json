@@ -1,0 +1,125 @@
+{
+    "invoice": {
+		"date": {
+			"title": "Date",
+			"selectformatdate" :  "Selectionnez un élément de la liste",
+			"plusdate": "+Date",
+			"moinsdate": "-Date"
+			},
+		"header": {
+			"infofacture": {
+			"title" : "INFO FACTURE",
+			"typefacture": "Type Facture",
+			"selecttypefacture": "Selectionnez un élément de la liste",
+			"numerofacture": "Numero Facture"
+			},
+			"fournisseur": {
+				"title" : "FOURNISSEUR",
+				"selecttypematricule" : "Selectionnez un élément de la liste",
+				"plusadresse": "+Adresse",
+				"moinsadresse": "-Adresse",
+				"detailadresse":{					
+					"adresse": "Adresse",
+					"rue": "Rue",
+					"codepostal": "Code Postal",
+					"ville": "Ville",
+					"pays" : "Pays"
+				},
+				"plusemplacement" : "+Emplacement",
+				"moinsemplacement" : "-Emplacement",
+				"plusdetailpartenair" : "+Details Partenaire",
+				"moinsdetailpartenair" : "-Details Partenaire",
+				"pluscontact": "+Contact",				
+				"contact" : {
+					"type" : "Type",
+					"identifiant" : "Identifiant",
+					"nom" : "Nom",
+					"plusmoyencommunication" : "+Moyen communcation",
+					"moinscontact": "-Contact",
+					"moyencommunication" : {
+						"moyen" : "Moyen",
+						"moinsmoyencommunication" :"-Moyen Communication"
+					}			
+				}
+			},
+			"client": {
+			"title" : "CLIENT",
+			"plusadresse": "+Adresse",
+				"moinsadresse": "-Adresse",
+				"detailadresse":{					
+					"adresse": "Adresse",
+					"rue": "Rue",
+					"codepostal": "Code Postal",
+					"ville": "Ville",
+					"pays" : "Pays"
+				},
+				"plusemplacement" : "+Emplacement",
+				"moinsemplacement" : "-Emplacement",
+				"plusdetailpartenair" : "+Details Partenaire",
+				"moinsdetailpartenair" : "-Details Partenaire",
+				"pluscontact": "+Contact",				
+				"contact" : {
+					"type" : "Type",
+					"identifiant" : "Identifiant",
+					"nom" : "Nom",
+					"plusmoyencommunication" : "+Moyen communcation",
+					"moinscontact": "-Contact",
+					"moyencommunication" : {
+						"moyen" : "Moyen",
+						"moinsmoyencommunication" :"-Moyen Communication"
+					}					
+				
+				}
+			},			
+			"partenaire": {
+				"title" : "PARTENAIRE",
+				"pluspartenaire" : "+Partenaire",
+				"moinspartenaire" : "-Partenaire",
+				"plusadresse": "+Adresse",
+				"moinsadresse": "-Adresse",
+					"detailadresse":{					
+						"adresse": "Adresse",
+						"rue": "Rue",
+						"codepostal": "Code Postal",
+						"ville": "Ville",
+						"pays" : "Pays"
+					},
+				"plusemplacement" : "+Emplacement",
+				"moinsemplacement" : "-Emplacement",
+				"plusdetailpartenaire" : "+Details Partenaire",
+				"moinsdetailpartenaire" : "-Details Partenaire",								
+					"contact" : {
+						"type" : "Type",
+						"identifiant" : "Identifiant",
+						"nom" : "Nom",
+						"pluscontact": "+Contact",
+						"moinscontact": "-Contact",
+						"moyencommunication" : {
+							"moyen" : "Moyen",
+							"plusmoyencommunication" : "+Moyen communcation",
+							"moinsmoyencommunication" :"-Moyen Communication"
+						}					
+					
+					}
+			},
+			
+			"paiement": {
+			  "title" : "PAIEMENT",
+			  "pluspaiement" : "+Paiement",
+			  "moinspaiement" : "-Paiement",
+			  "detailspaiment" : {
+				"selecttypepaiement" : "Selectionnez un élément de la liste",
+			    "description" : "Description",
+				"montant" : {
+					"selecttypemontant" :"Selectionnez le type du montant",		
+					"selectdevice" : "Selectionnez la devise",
+					"montantenchiffre" : "Montant en chiffre",
+					"montantenlettre" : "Montant en lettre",
+					"plusmontant" : "+Montant",
+					"moinsmontant" : "-Montant"
+					}				
+			  }
+			}
+		}	
+}
+}
