@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "portail-fatoora-frontend",
   "version": "0.0.1",
   "description": "Portail El-Fatoora — Angular 19 (migré depuis AngularJS 1.x)",
@@ -47,9 +47,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "nx": "^22.5.4",
     "ts-morph": "^27.0.2",
-    "typescript": "~5.5.0"
-  },
-  "overrides": {
     "typescript": "5.5.4"
   }
 }

@@ -54,9 +54,10 @@ interface InvoiceSearch {
     FormsModule,
     RouterModule,
     TranslateModule,
-   AlertComponent,
+    AlertComponent,
   ],
   templateUrl: './firstpage.component.html',
+  styleUrls: ['./firstpage.component.scss'],
 })
 export class FirstpageComponent {
   private readonly authService  = inject(AuthService);

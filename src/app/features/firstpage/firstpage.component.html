@@ -7,25 +7,22 @@
 @if (!isAuthenticated()) {
 
   <!-- Hero -->
-  <section id="slider" class="fullheight"
-    style="background: url('content/images/img.jpg') repeat scroll 0% 0%; height: 700px;">
-    <div class="overlay dark-4">
-      <div class="display-table">
-        <div class="display-table-cell vertical-align-middle">
-          <div class="container text-center">
-            <h1 class="m-0 fs-50 fw-400 wow fadeInUp" data-wow-delay="0.4s"
-                translate="firstpage.subtitle"></h1>
-            <p class="lead fs-30 wow fadeInUp" data-wow-delay="0.7s"
-               translate="firstpage.subtitle2"></p>
-            <div class="mt-30">
-              <a [routerLink]="['/login']" class="btn btn-3d btn-lg btn-teal">
-                <i class="glyphicon glyphicon-th-large"></i> Se Connecter
-              </a>
-              <span class="fs-17 hidden-xs-down btn btn-lg">&nbsp; Ou &nbsp;</span>
-              <a [routerLink]="['/register']" class="btn btn-3d btn-lg btn-red">
-                <i class="glyphicon glyphicon-user"></i> Créer un compte
-              </a>
-            </div>
+  <section id="slider" class="hero-section"
+    style="background-image: linear-gradient(135deg, rgba(13,17,23,.7) 0%, rgba(26,26,46,.6) 100%), url('https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=1200&h=700&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <div class="container">
+          <h1 class="hero-title wow fadeInUp" data-wow-delay="0.3s"
+              translate="firstpage.subtitle"></h1>
+          <p class="hero-subtitle wow fadeInUp" data-wow-delay="0.5s"
+             translate="firstpage.subtitle2"></p>
+          <div class="hero-actions wow fadeInUp" data-wow-delay="0.7s">
+            <a [routerLink]="['/login']" class="btn btn-primary btn-lg">
+              <i class="fa fa-sign-in"></i> Se Connecter
+            </a>
+            <a [routerLink]="['/register']" class="btn btn-secondary btn-lg">
+              <i class="fa fa-user-plus"></i> Créer un compte
+            </a>
           </div>
         </div>
       </div>
@@ -33,8 +30,8 @@
   </section>
 
   <!-- Bouton contact -->
-  <a href="#contact" class="btn btn-xlg btn-teal fs-20 fullwidth m-0 rad-0 p-40">
-    <span class="fs-30">Pour plus d'informations: <strong>Nous contacter</strong></span>
+  <a href="#contact" class="cta-banner">
+    <span>Pour plus d'informations: <strong>Nous contacter</strong></span>
   </a>
 
   <!-- Section Services -->
@@ -66,16 +63,16 @@
   <br />
 
   <!-- Bannière recherche -->
-  <a href="#searchByRef" class="btn btn-xlg btn-teal fs-20 fullwidth m-0 rad-0 p-40">
-    <span class="section-title" translate="firstpage.service.service22"></span>
+  <a href="#searchByRef" class="cta-banner cta-banner-secondary">
+    <span translate="firstpage.service.service22"></span>
   </a>
 
   <!-- Section Recherche facture -->
-  <section id="searchByRef" style="background: url('content/images/search.png'); height:260px;"
-           class="parallax">
-    <div class="overlay dark-6">
-      <div class="display-table">
-        <div class="display-table-cell vertical-align-middle">
+  <section id="searchByRef" class="search-section"
+           style="background-image: linear-gradient(135deg, rgba(13,17,23,.75) 0%, rgba(26,26,46,.7) 100%), url('https://images.pexels.com/photos/5632398/pexels-photo-5632398.jpeg?auto=compress&cs=tinysrgb&w=1200&h=400&fit=crop'); background-size: cover; background-position: center;">
+    <div class="search-overlay">
+      <div class="search-content">
+        <div class="container">
 
           @if (searchError()) {
             <div class="row">
@@ -98,7 +95,6 @@
                        placeholder="Reference unique" />
               </div>
             </div>
-            <!-- reCAPTCHA : intégrer @types/grecaptcha + composant tiers si besoin -->
             <div class="col-md-3">
               <p class="text-muted small">[reCAPTCHA widget à intégrer]</p>
             </div>

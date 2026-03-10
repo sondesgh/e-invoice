@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, HostListener, inject, computed } from '@angular/core';
+import { Component, OnInit, HostListener, inject, computed } from '@angular/core';
 import { CommonModule, registerLocaleData }                  from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import localeAr from '@angular/common/locales/ar';
@@ -89,12 +89,13 @@ export class NavbarComponent implements OnInit {
       roles:       ['ROLE_USER', 'ROLE_SUPER_USER', 'ROLE_SUPPORT', 'ROLE_ADMIN'],
       routePrefix: 'invoice',
       items: [
-        { labelKey: 'global.menu.invoices.add',       icon: 'fa-pencil',       route: '/invoice/add',     roles: ['ROLE_USER', 'ROLE_SUPER_USER'] },
-        { labelKey: 'global.menu.invoices.consult',   icon: 'fa-search',       route: '/invoice/consult'                                          },
-        { labelKey: 'global.menu.invoices.import',    icon: 'fa-upload',       route: '/invoice/import',  roles: ['ROLE_USER', 'ROLE_SUPER_USER'] },
-        { labelKey: 'global.menu.invoices.importSig', icon: 'fa-pencil-square',route: '/invoice/sign',    roles: ['ROLE_USER', 'ROLE_SUPER_USER'] },
-        { labelKey: 'global.menu.invoices.test',      icon: 'fa-check-circle', route: '/invoice/test',    roles: ['ROLE_USER', 'ROLE_SUPER_USER'] },
-        { labelKey: 'global.menu.invoices.support',   icon: 'fa-tasks',        route: '/invoice/consult', roles: ['ROLE_SUPPORT', 'ROLE_ADMIN']   },
+        { labelKey: 'global.menu.invoices.add',       icon: 'fa-pencil',        route: '/invoice/add',     roles: ['ROLE_USER', 'ROLE_SUPER_USER'] },
+        { labelKey: 'global.menu.invoices.consult',   icon: 'fa-search',        route: '/invoice/consult'                                          },
+        { labelKey: 'global.menu.invoices.import',    icon: 'fa-upload',        route: '/invoice/import',  roles: ['ROLE_USER', 'ROLE_SUPER_USER'] },
+        { labelKey: 'global.menu.invoices.importSig', icon: 'fa-pencil-square', route: '/invoice/sign',    roles: ['ROLE_USER', 'ROLE_SUPER_USER'] },
+        { labelKey: 'global.menu.invoices.test',      icon: 'fa-check-circle',  route: '/invoice/test',    roles: ['ROLE_USER', 'ROLE_SUPER_USER'] },
+        { labelKey: 'global.menu.invoices.eDoc',      icon: 'fa-file-text',     route: '/invoice/e-doc',   roles: ['ROLE_USER', 'ROLE_SUPPORT']    },
+        { labelKey: 'global.menu.invoices.support',   icon: 'fa-tasks',         route: '/invoice/consult', roles: ['ROLE_SUPPORT', 'ROLE_ADMIN']   },
       ],
     },
     // ── Gestion Utilisateurs ──────────────────────────────────────────────

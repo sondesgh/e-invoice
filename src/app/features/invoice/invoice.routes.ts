@@ -20,54 +20,42 @@ export const INVOICE_ROUTES: Routes = [
   {
     path: '',
     canActivate: [authGuard],
-    data: { authorities: ['ROLE_USER'] },   // ← garde parent commun à toutes les routes
+    data: { authorities: ['ROLE_USER'] },
     children: [
-
-      // ── Création de facture ──────────────────────────────────────────────
       {
-        path: 'addInvoice',
+        path: 'add',
         loadComponent: () =>
           import('./add/invoice-add.component').then(m => m.InvoiceAddComponent),
         title: 'addInvoice.title',
       },
-
-      // ── Import + signature (fichier XML existant) ────────────────────────
       {
-        path: 'importInvoice',
+        path: 'import',
         loadComponent: () =>
           import('./import/invoice-import.component').then(m => m.InvoiceImportComponent),
         title: 'importInvoice.title',
       },
-
-      // ── Signature multiple (liste de factures XML) ───────────────────────
       {
-        path: 'signInvoices',
+        path: 'sign',
         loadComponent: () =>
           import('./sign/invoice-sign.component').then(m => m.InvoiceSignComponent),
         title: 'Factures en attente de signature',
       },
-
-      // ── Test / validation de fichier TEIF ───────────────────────────────
       {
-        path: 'testInvoice',
+        path: 'test',
         loadComponent: () =>
           import('./test/invoice-test.component').then(m => m.InvoiceTestComponent),
         title: 'testInvoice.title',
       },
-
-      // ── Consultation / historique ────────────────────────────────────────
       {
-        path: 'consultInvoice',
+        path: 'consult',
         loadComponent: () =>
           import('./consult/invoice-consult.component').then(m => m.InvoiceConsultComponent),
         title: 'consultInvoice.title',
       },
-
-      // ── E-Doc (rôles multiples → redéfinir data sur ces routes) ─────────
       {
         path: 'e-doc',
         canActivate: [authGuard],
-        data: { authorities: ['ROLE_USER', 'ROLE_SUPPORT'] },  // ← surcharge le parent
+        data: { authorities: ['ROLE_USER', 'ROLE_SUPPORT'] },
         loadComponent: () =>
           import('./e-doc/e-doc.component').then(m => m.EDocComponent),
         title: 'portailElFatooraApp.eDoc.home.title',
@@ -75,16 +63,14 @@ export const INVOICE_ROUTES: Routes = [
       {
         path: 'e-doc/:id',
         canActivate: [authGuard],
-        data: { authorities: ['ROLE_ADMIN'] },                 // ← surcharge le parent
+        data: { authorities: ['ROLE_ADMIN'] },
         loadComponent: () =>
           import('./e-doc/e-doc.component').then(m => m.EDocDetailComponent),
         title: 'portailElFatooraApp.eDoc.detail.title',
       },
-
-      // ── Redirection par défaut ───────────────────────────────────────────
       {
         path: '',
-        redirectTo: 'addInvoice',
+        redirectTo: 'add',
         pathMatch: 'full',
       },
     ],
